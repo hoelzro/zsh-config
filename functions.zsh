@@ -30,4 +30,20 @@ function 1p {
     eval "$command"
 }
 
+function fg {
+    if [[ $# == 1 && $1 == <-> ]] ; then
+        builtin fg "%$1"
+        return $?
+    fi
+    builtin fg
+}
+
+function gg {
+    if [[ $# == 1 && $1 == <-> ]] ; then
+        builtin gg "%$1"
+        return $?
+    fi
+    builtin gg
+}
+
 # XXX cd !$ for git clone should work
