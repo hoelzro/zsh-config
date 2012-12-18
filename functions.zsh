@@ -25,7 +25,8 @@ function ov {
 
 # I often type this by mistake instead of !p
 function 1p {
-    local command=$(fc -l -n 1 -1 | sed -n -e '/^p/{p;q}')
+    local command
+    command=$(fc -l -n 1 -1 | sed -n -e '/^p/{p;q}')
     echo "$command"
     eval "$command"
 }
