@@ -47,4 +47,22 @@ function gg {
     builtin gg
 }
 
-# XXX cd !$ for git clone should work
+function cd {
+    local previous_command
+
+    previous_command=$(fc -nl -1 -1)
+
+    if [[ $previous_command =~ ^git && $previous_command =~ clone ]]; then
+        if [[ ! -d $1 && $1 =~ (hoelzro|github): ]]; then
+            local destination
+
+            destination=$1
+            destination=${destination#(github:*/|hoelzro:)}
+            destination=${destination%[.git]}
+
+            builtin cd "$destination"
+            return
+        fi
+    fi
+    builtin cd "$@"
+}
