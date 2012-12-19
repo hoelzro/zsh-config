@@ -2,7 +2,8 @@ setopt prompt_subst
 
 function __vcs_prompt {
     if git status &>/dev/null; then
-        local branch=$(git branch --color=never | sed -ne 's/* //p')
+        local branch
+        branch=$(git branch --color=never | sed -ne 's/* //p')
 
         if git status -uno -s | grep -q . ; then
             echo -n "[%B%F{red}$branch%f%b] "
