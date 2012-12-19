@@ -5,7 +5,7 @@ function __vcs_prompt {
         local branch
         branch=$(git branch --color=never | sed -ne 's/* //p')
 
-        if git status -uno -s | grep -q . ; then
+        if git status --untracked-files=no --short | grep -q . ; then
             echo -n "[%B%F{red}$branch%f%b] "
         else
             echo -n "[%B%F{green}$branch%f%b] "
