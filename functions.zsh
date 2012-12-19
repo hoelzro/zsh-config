@@ -39,12 +39,12 @@ function fg {
     builtin fg
 }
 
-function gg {
+function bg {
     if [[ $# == 1 && $1 == <-> ]] ; then
-        builtin gg "%$1"
+        builtin bg "%$1"
         return $?
     fi
-    builtin gg
+    builtin bg
 }
 
 function cd {
