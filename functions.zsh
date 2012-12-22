@@ -66,3 +66,7 @@ function cd {
     fi
     builtin cd "$@"
 }
+
+function which {
+    command which "$@"
+}
