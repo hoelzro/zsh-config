@@ -8,7 +8,7 @@ setopt list_rows_first
 setopt list_types
 setopt case_glob
 setopt case_match
-setopt nomatch
+unsetopt nomatch
 setopt rematch_pcre
 setopt unset
 setopt warn_create_global
