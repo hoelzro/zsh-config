@@ -28,6 +28,12 @@ alias gs='git status'
 alias gsh='git show'
 alias gt=tig
 
+alias hd='hg diff'
+alias hp='hg pull'
+alias hr='hg record'
+alias hs='hg status'
+alias ht='hg tip'
+
 if echo "$TERM" | grep -q -P '.*-256color' ; then
     alias tmux='tmux -2'
 fi
