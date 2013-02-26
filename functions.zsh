@@ -70,3 +70,7 @@ function cd {
 function which {
     command which "$@"
 }
+
+function e {
+    env | grep -i $1 | sort
+}
