@@ -74,3 +74,17 @@ function which {
 function e {
     env | grep -i $1 | sort
 }
+
+function man {
+    local size
+    local columns
+
+    setopt   local_options
+    unsetopt bash_rematch
+
+    size=$(stty size </dev/tty)
+    [[ "$size" =~ '[0-9]+$' ]]
+    columns=$MATCH
+    export MANWIDTH=$(( $columns - 5 ))
+    command man "$@"
+}
