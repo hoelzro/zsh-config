@@ -1,5 +1,4 @@
 alias ack="~/bin/ack"
-alias ack1=$(whence -p ack)
 alias cdblank="cdrecord --verbose dev=/dev/sr0 blank=fast"
 alias cdburn="cdrecord --verbose --eject dev=/dev/sr0 driveropts=burnfree"
 alias clyde='clyde --color'
