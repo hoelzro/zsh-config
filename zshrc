@@ -37,6 +37,7 @@ source ~/.zsh-scripts/functions.zsh
 source ~/.zsh-scripts/aliases.zsh
 source ~/.zsh-scripts/env.zsh
 source ~/.zsh-scripts/hooks.zsh
+source ~/.zsh-scripts/keys.zsh
 
 # Site-specific customizations
 if [[ -e ~/.bashrc_scripts/local.sh ]]; then
