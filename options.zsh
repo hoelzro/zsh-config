@@ -28,17 +28,3 @@ set interactive_comments
 set c_bases
 set octal_zeroes
 set bsd_echo
-
-here=<<HERE
-shopt -s cdspell
-shopt -s checkhash
-shopt -s checkwinsize
-shopt -s cmdhist
-shopt -s extglob
-
-if [[ ${BASH_VERSINFO[0]} -ge 4 ]]; then
-    shopt -s dirspell
-fi
-
-shopt -s noclobber
-HERE
