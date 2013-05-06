@@ -58,7 +58,7 @@ function cd {
 
             destination=$1
             destination=${destination#(github:*/|hoelzro:)}
-            destination=${destination%[.git]}
+            destination=${destination%[.]git}
 
             builtin cd "$destination"
             return
