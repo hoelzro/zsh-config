@@ -40,8 +40,8 @@ source ~/.zsh-scripts/hooks.zsh
 source ~/.zsh-scripts/keys.zsh
 
 # Site-specific customizations
-if [[ -e ~/.bashrc_scripts/local.sh ]]; then
-    source ~/.bashrc_scripts/local.sh
+if [[ -e ~/.zsh-scripts/local.zsh ]]; then
+    source ~/.zsh-scripts/local.zsh
 fi
 
 # XXX Bash::Completion plugins
