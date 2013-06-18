@@ -5,6 +5,16 @@ function __vcs_prompt {
         local branch
         branch=$(git branch --color=never | sed -ne 's/* //p')
 
+        # I hope this stays stable...
+        if [[ $branch == '(no branch)' ]] ; then
+            local repo_root=$(git rev-parse --show-toplevel)
+            if [[ -e "$repo_root/.git/rebase-merge" ]]; then
+                branch='(rebasing)'
+            elif [[ -e "$repo_root/.git/BISECT_START" ]] ; then
+                branch='(bisecting)'
+            fi
+        fi
+
         if git status --untracked-files=no --short | grep -q . ; then
             echo -n "[%B%F{red}git:$branch%f%b] "
         else
