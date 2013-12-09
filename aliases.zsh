@@ -8,6 +8,7 @@ alias dvdburn="cdrecord --verbose --eject dev=/dev/sr0"
 alias grep="grep --colour=auto"
 alias history="history -t '%F %T'"
 alias jbos=jobs
+alias jos=jobs
 alias less="less -RM"
 alias ls="ls $__LS_FLAGS"
 alias myrip="rip -c -f \"%A - %S\" -O -n -T"
