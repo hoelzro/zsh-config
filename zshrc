@@ -13,12 +13,6 @@ if [[ -e ~/.perlbrew/etc/bashrc ]]; then
     source ~/.perlbrew/etc/bashrc
 fi
 
-# RVM
-if [[ -e ~/.rvm/scripts/rvm ]]; then
-    source ~/.rvm/scripts/rvm
-    alias rvm="PAGER=less rvm"
-fi
-
 autoload -U compinit
 compinit
 
