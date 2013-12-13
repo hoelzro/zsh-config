@@ -13,6 +13,12 @@ if [[ -e ~/.perlbrew/etc/bashrc ]]; then
     source ~/.perlbrew/etc/bashrc
 fi
 
+# rbenv
+if [[ -d ~/.rbenv ]]; then
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+fi
+
 autoload -U compinit
 compinit
 
