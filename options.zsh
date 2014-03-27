@@ -12,7 +12,6 @@ setopt case_match
 unsetopt nomatch
 setopt rematch_pcre
 setopt unset
-setopt warn_create_global
 setopt append_history
 setopt bang_hist # is this what I want? csh-style?
 setopt extended_history
