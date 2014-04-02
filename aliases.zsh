@@ -11,6 +11,7 @@ alias jbos=jobs
 alias jos=jobs
 alias less="less -RM"
 alias ls="ls $__LS_FLAGS"
+alias maek=make
 alias myrip="rip -c -f \"%A - %S\" -O -n -T"
 alias notify-rob="xmpp-notify.pl -c ~/.notifyrob.yaml"
 alias perldoc="LANG=en_US perldoc"
