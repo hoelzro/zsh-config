@@ -1,6 +1,10 @@
 LS_LIMIT=400
 function ls_limited()
 {
+    if [[ $ZSH_SUBSHELL -ne 0 ]]; then
+        return
+    fi
+
     local file_count
 
     file_count=`ls | wc -l`
