@@ -19,6 +19,11 @@ if [[ -d ~/.rbenv ]]; then
     eval "$(rbenv init -)"
 fi
 
+# virtual env
+if [[ -e /usr/bin/virtualenvwrapper.sh ]]; then
+    source /usr/bin/virtualenvwrapper.sh
+fi
+
 fpath[$(( ${#fpath[@]} + 1))]="$HOME/.zsh-scripts/Completion/"
 autoload -U compinit
 compinit

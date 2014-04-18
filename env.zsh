@@ -25,6 +25,7 @@ export PGUSER=postgres
 export REPORTTIME=5
 export SAVEHIST=25000
 export WINEARCH=win32
+export WORKON=$HOME/.virtualenvs/
 
 unset MAIL
 
