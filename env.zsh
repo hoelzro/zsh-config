@@ -24,6 +24,7 @@ export PERL_CPANM_OPT="--mirror file://$HOME/minicpan --mirror http://cpan.mirro
 export PGUSER=postgres
 export REPORTTIME=5
 export SAVEHIST=25000
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 export WINEARCH=win32
 export WORKON=$HOME/.virtualenvs/
 
