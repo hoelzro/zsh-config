@@ -3,6 +3,7 @@ export DBIC_TRACE_PROFILE=console
 export EDITOR=vim
 export EMAIL='rob@hoelz.ro'
 export FIGNORE=.o
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export GIT_AUTHOR_NAME='Rob Hoelz'
 export GIT_AUTHOR_EMAIL=$EMAIL
 export GIT_COMMITTER_NAME=$GIT_AUTHOR_NAME
