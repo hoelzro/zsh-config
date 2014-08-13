@@ -1,8 +1,8 @@
 setopt prompt_subst
 
 function __vcs_prompt {
-    if git status &>/dev/null; then
-        local branch
+    local branch
+    if git rev-parse --is-inside-work-tree &>/dev/null; then
         branch=$(git branch --color=never | sed -ne 's/* //p')
 
         # I hope this stays stable...
@@ -20,10 +20,7 @@ function __vcs_prompt {
         else
             echo -n "[%B%F{green}git:$branch%f%b] "
         fi
-    elif hg status &>/dev/null; then
-        local branch
-        branch=$(hg branch)
-
+    elif branch=$(hg branch 2>/dev/null); then
         if hg status --quiet | grep -q . ; then
             echo -n "[%B%F{red}hg:$branch%f%b] "
         else
