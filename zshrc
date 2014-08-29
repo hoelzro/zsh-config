@@ -28,6 +28,10 @@ fpath[$(( ${#fpath[@]} + 1))]="$HOME/.zsh-scripts/Completion/"
 autoload -U compinit
 compinit
 
+# Awesome URL quoting magic
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
 # Autojump
 if [[ -e /usr/etc/profile.d/autojump.zsh ]]; then
     source /usr/etc/profile.d/autojump.zsh
