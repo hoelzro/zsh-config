@@ -57,14 +57,21 @@ function cd {
     previous_command=$(fc -nl -1 -1)
 
     if [[ $previous_command =~ ^git && $previous_command =~ clone ]]; then
-        if [[ ! -d $1 && $1 =~ (hoelzro|github): ]]; then
-            local destination
+        if [[ ! -d $1 ]]; then
+            local destination=$1
+            local proto_source
+            local path_pieces
+            local final_piece
 
-            destination=$1
-            destination=${destination#(github:*/|hoelzro:)}
-            destination=${destination%[.]git}
-
-            builtin cd "$destination"
+            echo "cd'ing to $destination"
+            proto_source=(${${(@s.:.)destination}})
+            if [ ${#proto_source} -eq 2 ]; then
+                destination=${proto_source[2]}
+            fi
+            destination=${destination%.git}
+            path_pieces=(${${(@s./.)destination}})
+            final_piece=${path_pieces[-1]}
+            builtin cd "$final_piece"
             return
         fi
     fi
