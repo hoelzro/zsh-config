@@ -63,7 +63,6 @@ function cd {
             local path_pieces
             local final_piece
 
-            echo "cd'ing to $destination"
             proto_source=(${${(@s.:.)destination}})
             if [ ${#proto_source} -eq 2 ]; then
                 destination=${proto_source[2]}
