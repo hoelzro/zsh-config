@@ -56,7 +56,7 @@ function cd {
 
     previous_command=$(fc -nl -1 -1)
 
-    if [[ $previous_command =~ ^git && $previous_command =~ clone ]]; then
+    if [[ $# -eq 1 && $previous_command =~ ^git && $previous_command =~ clone ]]; then
         if [[ ! -d $1 ]]; then
             local destination=$1
             local proto_source
