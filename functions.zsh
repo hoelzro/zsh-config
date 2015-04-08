@@ -85,6 +85,10 @@ function e {
     env | grep -i $1 | sort
 }
 
+function p {
+    ps aux | grep -i $1
+}
+
 function man {
     local size
     local columns
