@@ -102,3 +102,19 @@ function man {
     export MANWIDTH=$(( $columns - 5 ))
     command man "$@"
 }
+
+function gcv {
+    local num_changes
+    local invocation
+    local threshold=1000
+
+    num_changes=$(git diff-index --numstat HEAD | perl -anE '$sum += $F[0] + $F[1]; END { say $sum }')
+
+    if [[ $num_changes -ge $threshold ]]; then
+        invocation="git commit -uno -t <(echo -n \"\n# You have more than $threshold changes; use gcvv to see the changes anyway\")"
+    else
+        invocation='git commit -uno -v'
+    fi
+
+    eval $invocation "$*"
+}

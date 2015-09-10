@@ -24,7 +24,8 @@ alias gff='git ff'
 alias ga='git add'
 alias gap='git add -p'
 alias gc='git commit -uno'
-alias gcv='git commit -v -uno'
+# gcv is a function in functions.zsh now
+alias gcvv='git commit -v -uno'
 alias gs='git status'
 alias gsh='git show'
 alias gt=tig
