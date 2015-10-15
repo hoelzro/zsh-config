@@ -118,3 +118,18 @@ function gcv {
 
     eval $invocation "$*"
 }
+
+function conf {
+    local project=$(basename $(pwd))
+
+    if [[ $project == 'rakudo' ]]; then
+        perl Configure.pl --git-reference=$HOME/projects --prefix=/tmp/nom --gen-moar
+    elif [[ $project == 'nqp' ]]; then
+        perl Configure.pl --git-reference=$HOME/projects --prefix=/tmp/nom --gen-moar
+    elif [[ $project == 'MoarVM' ]]; then
+        perl Configure.pl --git-reference=$HOME/projects --prefix=/tmp/nom --gen-moar
+    else
+        echo "Unrecognized project '$project'"
+        return 1
+    fi
+}
