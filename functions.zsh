@@ -9,10 +9,10 @@ function ls_limited()
 
     file_count=`ls | wc -l`
     if [[ $file_count -gt $LS_LIMIT ]]; then
-	echo "Over $LS_LIMIT files were found; listing the first $LS_LIMIT"
-	ls $__LS_FLAGS | head -$LS_LIMIT
+        echo "Over $LS_LIMIT files were found; listing the newest $LS_LIMIT"
+        ls -tr $__LS_FLAGS | tail -n $LS_LIMIT
     else
-	ls $__LS_FLAGS
+        ls -tr $__LS_FLAGS
     fi
 }
 
