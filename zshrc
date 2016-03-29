@@ -48,7 +48,6 @@ source ~/.zsh-scripts/aliases.zsh
 source ~/.zsh-scripts/env.zsh
 source ~/.zsh-scripts/hooks.zsh
 source ~/.zsh-scripts/keys.zsh
-source ~/.zsh-scripts/k.zsh
 
 # Site-specific customizations
 if [[ -e ~/.zsh-scripts/local.zsh ]]; then
