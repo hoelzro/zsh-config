@@ -133,3 +133,38 @@ function conf {
         return 1
     fi
 }
+
+# functions that automatically augment path
+
+function _augment-path {
+    local add_to_path=$1
+    shift
+    local caller=${funcstack[2]}
+
+    which $caller &>/dev/null
+    if [[ $? -ne 0 ]]; then
+        export PATH=$PATH:$add_to_path
+        unhash -f $caller
+    fi
+    command $caller $*
+}
+
+function perl6 {
+    _augment-path "$HOME/.mokudo/bin:/home/rob/.mokudo/share/perl6/site/bin" $*
+}
+
+function panda {
+    _augment-path "$HOME/.mokudo/bin:/home/rob/.mokudo/share/perl6/site/bin" $*
+}
+
+function elm-make {
+    _augment-path "/home/rob/.elm-platform/Elm-Platform/0.16/.cabal-sandbox/bin:/home/rob/.elm-platform/node_modules/.bin/" $*
+}
+
+function elm-reactor {
+    _augment-path "/home/rob/.elm-platform/Elm-Platform/0.16/.cabal-sandbox/bin:/home/rob/.elm-platform/node_modules/.bin/" $*
+}
+
+function elm-repl {
+    _augment-path "/home/rob/.elm-platform/Elm-Platform/0.16/.cabal-sandbox/bin:/home/rob/.elm-platform/node_modules/.bin/" $*
+}
