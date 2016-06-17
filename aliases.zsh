@@ -21,7 +21,7 @@ alias perldoc="LANG=en_US perldoc"
 alias xmltidy='tidy -xml -i 2>/dev/null'
 alias tree='tree -C'
 
-alias gd='git diff'
+alias gd='git diff --no-prefix'
 alias gf='git fetch'
 alias gff='git ff'
 alias ga='git add'
