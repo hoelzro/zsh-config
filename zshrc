@@ -16,7 +16,7 @@ fi
 # rbenv
 if [[ -d ~/.rbenv ]]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
+    eval "$(rbenv init - --no-rehash)"
 fi
 
 # virtual env
