@@ -20,7 +20,9 @@ if [[ -d ~/.rbenv ]]; then
 fi
 
 # virtual env
-if [[ -e /usr/bin/virtualenvwrapper.sh ]]; then
+if [[ -e /usr/bin/virtualenvwrapper_lazy.sh ]]; then
+    source /usr/bin/virtualenvwrapper_lazy.sh
+elif [[ -e /usr/bin/virtualenvwrapper.sh ]]; then
     source /usr/bin/virtualenvwrapper.sh
 fi
 
