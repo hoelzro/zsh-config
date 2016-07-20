@@ -2,6 +2,8 @@ setopt prompt_subst
 
 function __vcs_prompt {
     local branch
+    local upstream_relationship
+
     if git rev-parse --is-inside-work-tree &>/dev/null; then
         branch=$(git branch --color=never | sed -ne 's/* //p')
 
@@ -13,12 +15,16 @@ function __vcs_prompt {
             elif [[ -e "$repo_root/.git/BISECT_START" ]] ; then
                 branch='(bisecting)'
             fi
+        else
+            upstream_relationship=$(git for-each-ref --format='%(upstream:track)' "refs/heads/$branch" | perl -CSAD -Mutf8 -nE 'chomp; $ahead = "↑$1" if /ahead\s+(\d+)/; $behind = "↓$1" if /behind\s+(\d+)/; say $ahead . $behind')
         fi
 
         if git status --untracked-files=no --short | grep -q . ; then
-            echo -n "[%B%F{red}git:$branch%f%b] "
+            echo -n "[%B%F{red}git:$branch$upstream_relationship%f%b] "
+        elif [[ "$upstream_relationship" != '' ]]; then
+            echo -n "[%B%F{yellow}git:$branch$upstream_relationship%f%b] "
         else
-            echo -n "[%B%F{green}git:$branch%f%b] "
+            echo -n "[%B%F{green}git:$branch$upstream_relationship%f%b] "
         fi
     elif branch=$(hg branch 2>/dev/null); then
         if hg status --quiet | grep -q . ; then
