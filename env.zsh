@@ -11,6 +11,7 @@ export GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL
 export GOPATH="$HOME/.local/share/go-deps:$HOME/projects/gocode"
 export HISTFILE=~/.zsh_history
 export HISTSIZE=100000
+export KEYTIMEOUT=1
 export LUA_HISTORY=~/.luahist
 export LUA_HISTSIZE=100
 export LUA_INIT="@$HOME/.luarc"
