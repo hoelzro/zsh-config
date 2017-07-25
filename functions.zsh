@@ -119,6 +119,14 @@ function gcv {
     eval $invocation "$*"
 }
 
+function mount {
+    if [[ $# -eq 0 ]]; then
+        findmnt -c -t noautofs,nobinfmt_misc,nosecurityfs,nocgroup,nocgroup2,nodebugfs,noconfigfs,nofusectl,nodevpts,nomqueue,nohugetlbfs,nofuse.gvfsd-fuse,nopstore
+    else
+        command mount "$@"
+    fi
+}
+
 function conf {
     local project=$(basename $(pwd))
 
