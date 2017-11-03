@@ -56,6 +56,8 @@ if [[ -e ~/.zsh-scripts/local.zsh ]]; then
     source ~/.zsh-scripts/local.zsh
 fi
 
+zstyle ':completion:*:processes' command "ps -a -U $(whoami)"
+
 # XXX Bash::Completion plugins
 
 ls_limited
