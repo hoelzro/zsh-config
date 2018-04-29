@@ -51,6 +51,8 @@ END_SQL
 
 my ( $hostname, $session_id, $timestamp, $history_id, $cwd, $entry ) = @ARGV;
 
+chomp $entry;
+
 $insert_sth->bind_param(':hostname'   => $hostname);
 $insert_sth->bind_param(':session_id' => $session_id);
 $insert_sth->bind_param(':timestamp'  => $timestamp);
