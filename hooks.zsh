@@ -21,3 +21,13 @@ command_not_found_handler() {
     fi
     return 127
 }
+
+typeset -a zshaddhistory_functions
+
+write_sqlite_history() {
+    local entry=$1
+
+    ~/.zsh-scripts/hist-append.pl "$(hostname)" "$$" "$(date +'%s')" $HISTCMD "$(pwd)" "$entry" || echo "Failed to write SQLite history - fix me!"
+}
+
+zshaddhistory_functions[$(($#zshaddhistory_functions + 1))]=write_sqlite_history
