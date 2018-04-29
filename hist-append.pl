@@ -6,6 +6,8 @@ use feature qw(say);
 use experimental qw(signatures);
 
 use DBI;
+use File::Basename qw(dirname);
+use File::Path qw(make_path);
 
 exit unless $ENV{'HISTFILE'};
 
@@ -16,6 +18,10 @@ $year += 1_900;
 
 my $database = sprintf('%s.d/%04d-%02d-%02d.db', $ENV{'HISTFILE'},
     $year, $month, $day);
+
+my $database_dir = dirname($database);
+
+make_path($database_dir);
 
 my $dbh = DBI->connect("dbi:SQLite:dbname=$database", undef, undef, {
     RaiseError => 1,
