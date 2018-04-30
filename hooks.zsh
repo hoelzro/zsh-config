@@ -27,6 +27,10 @@ typeset -a zshaddhistory_functions
 write_sqlite_history() {
     local entry=$1
 
+    if [[ $1 == ${~HISTORY_IGNORE} ]] ; then
+        return
+    fi
+
     ~/.zsh-scripts/hist-append.pl "$(hostname)" "$$" "$(date +'%s')" $HISTCMD "$(pwd)" "$entry" || echo "Failed to write SQLite history - fix me!"
 }
 
