@@ -36,17 +36,17 @@ _get_openssl_commands() {
 
   if ! (( ${+_openssl_standard_cmd_list} )); then
     typeset -ga _openssl_standard_cmd_list
-    _openssl_standard_cmd_list=( $(openssl list-standard-commands) )
+    _openssl_standard_cmd_list=( $(openssl list -commands) )
   fi
 
   if ! (( ${+_openssl_digest_cmd_list} )); then
     typeset -ga _openssl_digest_cmd_list
-    _openssl_digest_cmd_list=( $(openssl list-message-digest-commands) )
+    _openssl_digest_cmd_list=( $(openssl list -digest-commands) )
   fi
 
   if ! (( ${+_openssl_cipher_cmd_list} )); then
     typeset -ga _openssl_cipher_cmd_list
-    _openssl_cipher_cmd_list=( $(openssl list-cipher-commands) )
+    _openssl_cipher_cmd_list=( $(openssl list -cipher-commands) )
   fi
 }
 # }}}
