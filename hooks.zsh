@@ -35,3 +35,15 @@ write_sqlite_history() {
 }
 
 zshaddhistory_functions[$(($#zshaddhistory_functions + 1))]=write_sqlite_history
+
+typeset -a zshexit_functions
+
+write_sqlite_history_onexit() {
+    if [[ $1 == ${~HISTORY_IGNORE} ]] ; then
+        return
+    fi
+
+    ~/.zsh-scripts/hist-append.pl "$(hostname)" "$$" "$(date +'%s')" $HISTCMD "$(pwd)" "exit" || echo "Failed to write SQLite history - fix me!"
+}
+
+zshexit_functions[$(($#zshexit_functions + 1))]=write_sqlite_history_onexit
