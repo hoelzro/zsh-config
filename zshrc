@@ -58,6 +58,13 @@ fi
 
 zstyle ':completion:*:processes' command "ps -a -U $(whoami)"
 
+zstyle ':completion:*:globbed-files' ignored-patterns \
+    '*.o' \
+    '*.ibc' \
+    '*.hi' \
+    '*.elmi' \
+    '*.elmo'
+
 # XXX Bash::Completion plugins
 
 ls_limited
