@@ -1,0 +1,10 @@
+#compdef pkg_files mans=pkg_files headers=pkg_files bins=pkg_files libs=pkg_files
+
+_pacman_completions_installed_packages() {
+	local -a cmd packages packages_long
+	packages_long=(/var/lib/pacman/local/*(/))
+	packages=( ${${packages_long#/var/lib/pacman/local/}%-*-*} )
+	compadd "$@" -a packages
+}
+
+_arguments "*:package:_pacman_completions_installed_packages"
