@@ -12,6 +12,8 @@ command_not_found_handler() {
         exec git $subcommand "$@"
     fi
 
+    echo "command '$cmd' not found"
+
     local pkgs
     pkgs=(${(f)"$(pkgfile -b -v -- "$cmd" 2>/dev/null)"})
     if [[ -n "$pkgs" ]]; then
