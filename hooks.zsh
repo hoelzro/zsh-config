@@ -15,7 +15,7 @@ command_not_found_handler() {
     echo "command '$cmd' not found"
 
     local pkgs
-    pkgs=(${(f)"$(pkgfile -b -v -- "$cmd" 2>/dev/null)"})
+    pkgs=(${(f)"$(which pkgfile &>/dev/null && pkgfile -b -v -- "$cmd" 2>/dev/null)"})
     if [[ -n "$pkgs" ]]; then
         printf '%s may be found in the following packages:\n' "$cmd"
         printf '  %s\n' $pkgs[@]
