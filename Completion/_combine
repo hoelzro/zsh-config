@@ -1,0 +1,5 @@
+#compdef combine
+
+_arguments "1:first file:_files" \
+           "2:operator:(and or not xor)"\
+           "3:second file:_files"
