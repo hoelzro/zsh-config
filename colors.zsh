@@ -35,4 +35,4 @@ function __vcs_prompt {
     fi
 }
 
-PS1="\$(__vcs_prompt)%F{cyan}[%*] %F{green}%n@%m %F{blue}%~ \$ %f"
+PS1="%(2j.(%j jobs running) .%(1j.(1 job running) .))\$(__vcs_prompt)%F{cyan}[%*] %F{green}%n@%m %F{blue}%~ \$ %f"
