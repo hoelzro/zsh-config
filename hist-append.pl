@@ -32,7 +32,7 @@ $dbh->do(<<'END_SQL');
 CREATE TABLE IF NOT EXISTS history (
     hostname,
     session_id, -- shell PID
-    timestamp,
+    timestamp integer not null,
     history_id, -- $HISTCMD
     cwd,
     entry
