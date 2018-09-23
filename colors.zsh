@@ -1,10 +1,39 @@
 setopt prompt_subst
 
+typeset -g -A __dir_vcs_type
+
+function __setup_zsh_prompt() {
+    local wd
+    local vcs_type
+
+    wd=$(pwd)
+    vcs_type=$__dir_vcs_type[$wd]
+
+    if [[ -z "$vcs_type" ]]; then
+        if git rev-parse --is-inside-work-tree &>/dev/null; then
+            vcs_type=git
+        elif hg branch &>/dev/null; then
+            vcs_type=hg
+        else
+            vcs_type=none
+        fi
+        __dir_vcs_type[$wd]=$vcs_type
+    fi
+}
+
+add-zsh-hook precmd __setup_zsh_prompt
+
 function __vcs_prompt {
     local branch
     local upstream_relationship
+    local wd
+    local vcs_type
 
-    if git rev-parse --is-inside-work-tree &>/dev/null; then
+    wd=$(pwd)
+
+    vcs_type=$__dir_vcs_type[$wd]
+
+    if [[ $vcs_type == git ]]; then
         branch=$(git branch --color=never | sed -ne 's/* //p')
 
         # I hope this stays stable...
@@ -26,7 +55,8 @@ function __vcs_prompt {
         else
             echo -n "[%B%F{green}git:$branch$upstream_relationship%f%b] "
         fi
-    elif branch=$(hg branch 2>/dev/null); then
+    elif [[ $vcs_type == hg ]]; then
+        branch=$(hg branch)
         if hg status --quiet | grep -q . ; then
             echo -n "[%B%F{red}hg:$branch%f%b] "
         else
