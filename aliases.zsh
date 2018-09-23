@@ -35,7 +35,7 @@ alias gt=tig
 
 alias hd='hg diff'
 alias hp='hg pull'
-alias hr='hg record'
+alias hr='hg commit --interactive'
 alias hs='hg status'
 alias ht='hg tip'
 
