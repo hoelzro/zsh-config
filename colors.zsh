@@ -65,4 +65,19 @@ function __vcs_prompt {
     fi
 }
 
-PS1="%(2j.(%j jobs running) .%(1j.(1 job running) .))\$(__vcs_prompt)%F{cyan}[%*] %F{green}%n@%m %F{blue}%~ \$ %f"
+__vi_mode=main
+
+function zle-line-init {
+    __vi_mode=$KEYMAP
+    zle reset-prompt
+}
+
+function zle-keymap-select {
+    __vi_mode=$KEYMAP
+    zle reset-prompt
+}
+
+zle -N zle-keymap-select
+zle -N zle-line-init
+
+PS1="\$([[ \$__vi_mode == 'vicmd' ]] && echo %U)%(2j.(%j jobs running) .%(1j.(1 job running) .))\$(__vcs_prompt)%F{cyan}[%*] %F{green}%n@%m %F{blue}%~ \$ %f\$([[ \$__vi_mode == 'vicmd' ]] && echo %u)"
