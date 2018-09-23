@@ -1,6 +1,4 @@
-typeset -a chpwd_functions
-
-chpwd_functions[$(($#chpwd_functions + 1))]=ls_limited
+add-zsh-hook chpwd ls_limited
 
 command_not_found_handler() {
     local cmd=$1
@@ -24,8 +22,6 @@ command_not_found_handler() {
     return 127
 }
 
-typeset -a zshaddhistory_functions
-
 write_sqlite_history() {
     local entry=$1
 
@@ -36,9 +32,7 @@ write_sqlite_history() {
     ~/.zsh-scripts/hist-append.pl "$(hostname)" "$$" "$(date +'%s')" $HISTCMD "$(pwd)" "$entry" || echo "Failed to write SQLite history - fix me!"
 }
 
-zshaddhistory_functions[$(($#zshaddhistory_functions + 1))]=write_sqlite_history
-
-typeset -a zshexit_functions
+add-zsh-hook zshaddhistory write_sqlite_history
 
 write_sqlite_history_onexit() {
     if [[ $1 == ${~HISTORY_IGNORE} ]] ; then
@@ -48,4 +42,4 @@ write_sqlite_history_onexit() {
     ~/.zsh-scripts/hist-append.pl "$(hostname)" "$$" "$(date +'%s')" $HISTCMD "$(pwd)" "exit" || echo "Failed to write SQLite history - fix me!"
 }
 
-zshexit_functions[$(($#zshexit_functions + 1))]=write_sqlite_history_onexit
+add-zsh-hook zshexit write_sqlite_history_onexit

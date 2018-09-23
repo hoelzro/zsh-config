@@ -43,6 +43,8 @@ elif [[ ! -z "$__BREW_ROOT" ]] && [[ -e "$__BREW_ROOT/etc/autojump.zsh" ]]; then
     source $__BREW_ROOT/etc/autojump.zsh
 fi
 
+autoload -U add-zsh-hook
+
 source ~/.zsh-scripts/options.zsh
 source ~/.zsh-scripts/colors.zsh
 source ~/.zsh-scripts/functions.zsh
