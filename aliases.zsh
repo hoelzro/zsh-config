@@ -2,6 +2,7 @@ alias ack="~/bin/ack"
 alias cdblank="cdrecord --verbose dev=/dev/sr0 blank=fast"
 alias cdburn="cdrecord --verbose --eject dev=/dev/sr0 driveropts=burnfree"
 alias clyde='clyde --color'
+alias cower='cower --color=auto'
 alias cs='perl script/*_server.pl'
 alias dvdblank="cdrecord --verbose dev=/dev/sr0 blank=fast"
 alias dvdburn="cdrecord --verbose --eject dev=/dev/sr0"
