@@ -67,6 +67,14 @@ zstyle ':completion:*:globbed-files' ignored-patterns \
     '*.elmi' \
     '*.elmo'
 
+# Load help...helpers
+unalias run-help
+autoload -Uz run-help
+autoload -Uz run-help-git
+autoload -Uz run-help-ip
+autoload -Uz run-help-openssl
+autoload -Uz run-help-sudo
+
 # XXX Bash::Completion plugins
 
 ls_limited
