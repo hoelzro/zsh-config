@@ -51,5 +51,6 @@ zle -N remove_pacsearch_replace_and_search_forward _remove_pacsearch_replace_and
 
 bindkey -M custom '^I' fat_finger_bang4_expand
 bindkey -M custom ' ' pacsearch_replace
+bindkey -M custom '^[[11~' run-help
 bindkey -M vicmd '/' remove_pacsearch_replace_and_search_backward
 bindkey -M vicmd '?' remove_pacsearch_replace_and_search_forward
