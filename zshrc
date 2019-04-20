@@ -26,7 +26,7 @@ elif [[ -e /usr/bin/virtualenvwrapper.sh ]]; then
     source /usr/bin/virtualenvwrapper.sh
 fi
 
-fpath=("$HOME/.zsh-scripts/Completion/" $fpath)
+fpath=("$HOME/.zsh-scripts/Completion/" "$HOME/.zsh-scripts/Functions/Local" "$HOME/.zsh-scripts/Functions/" $fpath)
 autoload -U compinit
 compinit
 
