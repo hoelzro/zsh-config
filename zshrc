@@ -75,6 +75,8 @@ autoload -Uz run-help-ip
 autoload -Uz run-help-openssl
 autoload -Uz run-help-sudo
 
+autoload -Uz memo
+
 # XXX Bash::Completion plugins
 
 ls_limited

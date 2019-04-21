@@ -1,0 +1,63 @@
+# vim:ft=zsh
+
+# XXX support --key ARG and --timeout TIMEOUT
+#     better hashing of arguments to handle escapes
+#     what if you pipe into a memoized command, or redirect its stdin?
+#     slurp in stdout & stderr
+#     clean up of temporary files
+
+local i
+local -a key_parts
+local timeout
+local key_hash
+local cache_filename
+local -a cmd
+
+for (( i=1 ; $i <= ${#argv[*]} ; i++ )) ; do
+    case ${argv[$i]} in
+        --timeout=*)
+            timeout=${argv[$i]#--timeout=}
+            # XXX catch arithmetic errors?
+            case $timeout in
+                *h)
+                    timeout=$(( ${timeout%h} * 3600 ))
+                    ;;
+                *m)
+                    timeout=$(( ${timeout%m} * 60 ))
+                    ;;
+                *s)
+                    timeout=$(( ${timeout%s} * 1 ))
+                    ;;
+                *)
+                    timeout=$(( $timeout * 1 ))
+                    ;;
+            esac
+            ;;
+        --key=*)
+            key_parts+=(${argv[$i]#--key=})
+            ;;
+        --)
+            cmd=(${argv[$(($i+1)),${#argv[*]}]})
+            key_parts=($key_parts ${cmd[*]})
+            break
+            ;;
+        *)
+            echo "Invalid argument '${argv[$i]}'" >&2
+            return 1
+            ;;
+    esac
+done
+
+if [[ -z "$timeout" ]] ; then
+    echo "timeout is empty" >&2
+    return 1
+fi
+
+key_hash=$(echo "${key_parts[*]}" | sha1sum -)
+cache_filename=/tmp/$key_hash
+
+if [[ $(date +'%s') -gt $(( $(stat -c '%Y' "$cache_filename" 2>/dev/null || echo 0) + $timeout )) ]]; then
+    ${cmd[*]} >| "$cache_filename"
+fi
+
+cat "$cache_filename"
