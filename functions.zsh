@@ -176,3 +176,7 @@ function elm-reactor {
 function elm-repl {
     _augment-path "/home/rob/.elm-platform/Elm-Platform/0.16/.cabal-sandbox/bin:/home/rob/.elm-platform/node_modules/.bin/" $*
 }
+
+function run-help-aws {
+    aws $* help
+}
