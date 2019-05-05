@@ -10,7 +10,9 @@ setopt list_types
 setopt case_glob
 setopt case_match
 unsetopt nomatch
-setopt rematch_pcre
+if zmodload | grep -q pcre ; then
+    setopt rematch_pcre
+fi
 setopt unset
 setopt append_history
 setopt bang_hist # is this what I want? csh-style?
