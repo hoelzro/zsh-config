@@ -1,0 +1,15 @@
+# vim:ft=zsh
+
+local pid
+
+pid=$(find-existing-vim-session.pl "$1")
+
+# if it's empty, find-existing-vim-session.pl did a thing already
+if [[ $pid != '' ]] ; then
+    local job_id
+    job_id=$(jobs -l | perl -nle "print \$1 if /^\[(\d+)\]\s*[-+]?\s+$pid/")
+
+    if [[ $job_id != '' ]] ; then
+        print -z "fg $job_id"
+    fi
+fi

@@ -76,6 +76,7 @@ autoload -Uz run-help-openssl
 autoload -Uz run-help-sudo
 
 autoload -Uz memo
+autoload -Uz find-existing-vim-session
 
 # XXX Bash::Completion plugins
 
