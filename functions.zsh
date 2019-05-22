@@ -180,3 +180,7 @@ function elm-repl {
 function run-help-aws {
     aws $* help
 }
+
+function lhist {
+    fc -lI 1 -1 $*
+}
