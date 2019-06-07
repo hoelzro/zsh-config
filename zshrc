@@ -81,3 +81,4 @@ autoload -Uz find-existing-vim-session
 # XXX Bash::Completion plugins
 
 ls_limited
+check-dotfiles-sync-status

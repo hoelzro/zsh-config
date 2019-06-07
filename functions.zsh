@@ -184,3 +184,26 @@ function run-help-aws {
 function lhist {
     fc -lI 1 -1 $*
 }
+
+function check-dotfiles-sync-status {
+    # otherwise, check to see if "notification" is suppressed - if so, exit this function
+    #   suppress file should contain a timestamp of when it's no longer suppressed
+    local sync_status_file
+    local local_revision
+    local current_revision
+
+    sync_status_file="$HOME/.cache/dotfiles-sync"
+
+    if [[ -e $sync_status_file && $(( $(stat -c '%Y' $sync_status_file) + 14400 )) -gt $(date +'%s') ]] ; then
+        for dir in ~/.vim ~/.config/awesome ~/.zsh-scripts/ ~/projects/dotfiles ; do
+            local_revision=$(git -C $dir rev-parse HEAD)
+            current_revision=$(git -C $dir rev-parse origin/master)
+
+            if [[ $local_revision != $current_revision ]] ; then
+                echo "*** The dotfiles under $dir are out-of-sync ***"
+            fi
+        done
+    else
+        echo "*** The dotfiles sync state file hasn't been updated for some time - is the cronjob running? ***"
+    fi
+}
