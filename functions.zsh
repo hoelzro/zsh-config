@@ -200,10 +200,10 @@ function check-dotfiles-sync-status {
             current_revision=$(git -C $dir rev-parse origin/master)
 
             if [[ $local_revision != $current_revision ]] ; then
-                echo "*** The dotfiles under $dir are out-of-sync ***"
+                echo -e "\e[5m*** The dotfiles under $dir are out-of-sync ***\e[0m"
             fi
         done
     else
-        echo "*** The dotfiles sync state file hasn't been updated for some time - is the cronjob running? ***"
+        echo -e "\e[5m*** The dotfiles sync state file hasn't been updated for some time - is the cronjob running? ***\e[0m"
     fi
 }
