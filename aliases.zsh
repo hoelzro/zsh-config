@@ -8,6 +8,7 @@ alias dvdblank="cdrecord --verbose dev=/dev/sr0 blank=fast"
 alias dvdburn="cdrecord --verbose --eject dev=/dev/sr0"
 alias grep="grep --colour=auto"
 alias history="history -t '%F %T'"
+alias hl='ack --passthru -i'
 alias jbos=jobs
 alias jos=jobs
 alias less="less -RMIFX -PM'lines %lt-%lb of %L'"
