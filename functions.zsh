@@ -182,7 +182,7 @@ function run-help-aws {
 }
 
 function lhist {
-    fc -lI 1 -1 $*
+    fc $* -lI 1 -1
 }
 
 function check-dotfiles-sync-status {
