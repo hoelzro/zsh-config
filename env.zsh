@@ -17,6 +17,7 @@ export LUA_HISTSIZE=100
 export LUA_INIT="@$HOME/.luarc"
 export MANPAGER=man-pager
 export MANPATH=$MANPATH:/usr/share/man
+export MANSECT='1:l:8:3:0:2:5:4:9:6:7:n'
 export MPD_HOST=127.0.0.1
 export MYSQL_PS1="mysql [\U \d]:\c> "
 export PAGER="less -RM"
