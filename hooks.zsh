@@ -24,6 +24,7 @@ command_not_found_handler() {
 
 write_sqlite_history() {
     local entry=$1
+    __running_histcmd=$HISTCMD
 
     if [[ $1 == ${~HISTORY_IGNORE} ]] ; then
         return
@@ -43,3 +44,21 @@ write_sqlite_history_onexit() {
 }
 
 add-zsh-hook zshexit write_sqlite_history_onexit
+
+update_sqlite_history() {
+    local __exit_status=$?
+
+    if [[ $1 == ${~HISTORY_IGNORE} ]] ; then
+        return
+    fi
+
+    if [[ -z "$__running_histcmd" ]] ; then
+        return
+    fi
+
+    # XXX not sure how to handle ctrl-c on the command line...
+
+    ~/.zsh-scripts/hist-update.pl "$(hostname)" "$$" $__running_histcmd "$(date +'%s')" $__exit_status
+}
+
+add-zsh-hook precmd update_sqlite_history

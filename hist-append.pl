@@ -43,10 +43,6 @@ END_SQL
 
 # XXX detect shell exit?
 
-# other data:
-#   time to run
-#   exit status
-
 my $insert_sth = $dbh->prepare(<<'END_SQL');
 INSERT INTO history (hostname, session_id, timestamp, history_id, cwd, entry) VALUES (:hostname, :session_id, :timestamp, :history_id, :cwd, :entry);
 END_SQL
