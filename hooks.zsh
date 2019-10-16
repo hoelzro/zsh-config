@@ -27,6 +27,7 @@ write_sqlite_history() {
     __running_histcmd=$HISTCMD
 
     if [[ $1 == ${~HISTORY_IGNORE} ]] ; then
+        __running_histcmd=''
         return
     fi
 
@@ -47,10 +48,6 @@ add-zsh-hook zshexit write_sqlite_history_onexit
 
 update_sqlite_history() {
     local __exit_status=$?
-
-    if [[ $1 == ${~HISTORY_IGNORE} ]] ; then
-        return
-    fi
 
     if [[ -z "$__running_histcmd" ]] ; then
         return
