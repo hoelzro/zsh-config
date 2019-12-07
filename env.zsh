@@ -30,6 +30,7 @@ export SAVEHIST=1000000
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export WINEARCH=win32
 export WORKON=$HOME/.virtualenvs/
+export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring
 
 unset MAIL
 
