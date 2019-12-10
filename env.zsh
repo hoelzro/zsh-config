@@ -12,6 +12,7 @@ export GOPATH="$HOME/.local/share/go-deps:$HOME/projects/gocode"
 export HISTFILE=~/.zsh_history
 export HISTSIZE=1000000
 export KEYTIMEOUT=1
+export LC_TIME=POSIX
 export LUA_HISTORY=~/.luahist
 export LUA_HISTSIZE=100
 export LUA_INIT="@$HOME/.luarc"
