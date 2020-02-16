@@ -24,7 +24,7 @@ function _aws() {
     done
 
     if [[ -z $service ]] ; then
-        _arguments "1:service:(${__aws_services[*]} ${__aws_global_options[*]})"
+        _arguments "*:service:(${__aws_services[*]} ${__aws_global_options[*]})"
     else
         if [[ -z $cmd ]] ; then
             if [[ -z ${__aws_service_commands[(I)$service]} ]] ; then
