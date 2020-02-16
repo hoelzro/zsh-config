@@ -1,0 +1,10 @@
+# vim:ft=zsh
+
+local iteratee=$1
+
+# XXX this sucks
+#     just load it instead of using autoload?
+eval "function _comp_iterate() { unfunction $iteratee ; autoload -Uz $iteratee ; zle expand-or-complete }"
+
+zle -N comp_iterate _comp_iterate
+bindkey -M custom '^I' comp_iterate

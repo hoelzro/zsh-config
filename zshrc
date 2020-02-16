@@ -77,6 +77,7 @@ autoload -Uz run-help-sudo
 
 autoload -Uz memo
 autoload -Uz find-existing-vim-session
+autoload -Uz comp-iterate
 
 # XXX Bash::Completion plugins
 
