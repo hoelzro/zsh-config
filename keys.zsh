@@ -55,3 +55,8 @@ bindkey -M custom '^[[11~' run-help
 bindkey -M custom '^O' push-line
 bindkey -M vicmd '/' remove_pacsearch_replace_and_search_backward
 bindkey -M vicmd '?' remove_pacsearch_replace_and_search_forward
+
+bindkey -M vicmd 'j' down-history
+bindkey -M vicmd 'k' up-history
+bindkey -M vicmd 'gj' down-line-or-history
+bindkey -M vicmd 'gk' up-line-or-history
