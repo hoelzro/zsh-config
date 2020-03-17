@@ -60,3 +60,12 @@ bindkey -M vicmd 'j' down-history
 bindkey -M vicmd 'k' up-history
 bindkey -M vicmd 'gj' down-line-or-history
 bindkey -M vicmd 'gk' up-line-or-history
+
+bindkey -M custom -r '^[OA'
+bindkey -M custom -r '^[OB'
+bindkey -M custom -r '^[[A'
+bindkey -M custom -r '^[[B'
+bindkey -M vicmd -r '^[OA'
+bindkey -M vicmd -r '^[OB'
+bindkey -M vicmd -r '^[[A'
+bindkey -M vicmd -r '^[[B'
