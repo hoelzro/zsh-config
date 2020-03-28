@@ -67,6 +67,8 @@ zstyle ':completion:*:globbed-files' ignored-patterns \
     '*.elmi' \
     '*.elmo'
 
+zstyle ':completion:*:cd:*' file-sort 'reverse modification'
+
 # Load help...helpers
 unalias run-help
 autoload -Uz run-help
