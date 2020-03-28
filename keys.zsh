@@ -49,31 +49,35 @@ function _slash_show_relative_destination() {
     fi
 }
 
-function _remove_pacsearch_replace_and_search_backward() {
+function _remove_magic_keys_and_search_backward() {
     bindkey -M custom ' ' self-insert
+    bindkey -M custom '/' self-insert
     zle vi-history-search-backward
     bindkey -M custom ' ' pacsearch_replace
+    bindkey -M custom '/' slash_show_relative_destination
 }
 
-function _remove_pacsearch_replace_and_search_forward() {
+function _remove_magic_keys_and_search_forward() {
     bindkey -M custom ' ' self-insert
+    bindkey -M custom '/' self-insert
     zle vi-history-search-forward
     bindkey -M custom ' ' pacsearch_replace
+    bindkey -M custom '/' slash_show_relative_destination
 }
 
 zle -N fat_finger_bang4_expand _fat_finger_bang4_expand
 zle -N pacsearch_replace _pacsearch_replace
 zle -N slash_show_relative_destination _slash_show_relative_destination
-zle -N remove_pacsearch_replace_and_search_backward _remove_pacsearch_replace_and_search_backward
-zle -N remove_pacsearch_replace_and_search_forward _remove_pacsearch_replace_and_search_forward
+zle -N remove_magic_keys_and_search_backward _remove_magic_keys_and_search_backward
+zle -N remove_magic_keys_and_search_forward _remove_magic_keys_and_search_forward
 
 bindkey -M custom '^I' fat_finger_bang4_expand
 bindkey -M custom ' ' pacsearch_replace
 bindkey -M custom '^[[11~' run-help
 bindkey -M custom '^O' push-line
 bindkey -M custom '/' slash_show_relative_destination
-bindkey -M vicmd '/' remove_pacsearch_replace_and_search_backward
-bindkey -M vicmd '?' remove_pacsearch_replace_and_search_forward
+bindkey -M vicmd '/' remove_magic_keys_and_search_backward
+bindkey -M vicmd '?' remove_magic_keys_and_search_forward
 
 bindkey -M vicmd 'j' down-history
 bindkey -M vicmd 'k' up-history
