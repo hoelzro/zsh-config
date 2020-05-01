@@ -107,13 +107,18 @@ function gcv {
     local num_changes
     local invocation
     local threshold=1000
+    local topic=$GIT_TOPIC
 
     num_changes=$(git diff-index --cached --numstat HEAD | perl -anE '$sum += $F[0] + $F[1]; END { say $sum }')
 
+    if [[ "$topic" != '' ]]; then
+        topic="$topic: "
+    fi
+
     if [[ $num_changes -ge $threshold ]]; then
-        invocation="git commit -uno -t <(echo -n \"\n# You have more than $threshold changes; use gcvv to see the changes anyway\")"
+        invocation="git commit -uno -t <(echo -n \"$topic\n# You have more than $threshold changes; use gcvv to see the changes anyway\")"
     else
-        invocation='git commit -uno -v'
+        invocation="git commit -uno -v -t <(echo -n \"$topic\")"
     fi
 
     eval $invocation "$*"
