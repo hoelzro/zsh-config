@@ -212,3 +212,11 @@ function check-dotfiles-sync-status {
         echo -e "\e[5m*** The dotfiles sync state file hasn't been updated for some time - is the cronjob running? ***\e[0m"
     fi
 }
+
+function tar {
+    if tty -s ; then
+        command tar "$@"
+    else
+        bsdtar "$@"
+    fi
+}
