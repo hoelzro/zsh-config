@@ -92,3 +92,5 @@ bindkey -M vicmd -r '^[OA'
 bindkey -M vicmd -r '^[OB'
 bindkey -M vicmd -r '^[[A'
 bindkey -M vicmd -r '^[[B'
+
+bindkey -M viopp "i'" select-in-shell-word
