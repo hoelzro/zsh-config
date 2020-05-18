@@ -44,7 +44,7 @@ function _slash_show_relative_destination() {
         second_word=${${(z)LBUFFER}[2]}
 
         if [[ $num_words -eq 2 ]]; then
-            zle -M "$(realpath "$second_word")"
+            zle -M ${${~second_word}:P}
         fi
     fi
 }
