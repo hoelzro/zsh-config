@@ -202,7 +202,7 @@ function check-dotfiles-sync-status {
     if [[ -e $sync_status_file && $(( $(stat -c '%Y' $sync_status_file) + 14400 )) -gt $(date +'%s') ]] ; then
         for dir in ~/.vim ~/.config/awesome ~/.zsh-scripts/ ~/projects/dotfiles ; do
             local_revision=$(git -C $dir rev-parse HEAD)
-            current_revision=$(git -C $dir rev-parse origin/master)
+            current_revision=$(git -C $dir rev-parse HEAD@{upstream})
 
             if [[ $local_revision != $current_revision ]] ; then
                 echo -e "\e[5m*** The dotfiles under $dir are out-of-sync ***\e[0m"
