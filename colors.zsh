@@ -10,7 +10,7 @@ function __setup_zsh_prompt() {
     vcs_type=$__dir_vcs_type[$wd]
 
     if [[ -z "$vcs_type" ]]; then
-        if git rev-parse --is-inside-work-tree &>/dev/null; then
+        if git rev-parse --is-inside-work-tree 2>/dev/null | grep -q true; then
             vcs_type=git
         elif hg branch &>/dev/null; then
             vcs_type=hg
