@@ -220,3 +220,7 @@ function tar {
         bsdtar "$@"
     fi
 }
+
+function run-help-kubectl {
+    command kubectl "$@" --help
+}
