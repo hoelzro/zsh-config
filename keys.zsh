@@ -7,6 +7,7 @@ bindkey -A custom main
 bindkey -M custom '^U' backward-kill-line
 bindkey -M custom ${terminfo[kdch1]} delete-char
 bindkey -M custom '^X^E' edit-command-line
+bindkey -M custom '^Xu' undo
 
 function _fat_finger_bang4_expand() {
     LBUFFER=${LBUFFER/%\!4/\!$}
