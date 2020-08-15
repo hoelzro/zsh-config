@@ -11,14 +11,18 @@ use File::Path qw(make_path);
 
 exit unless $ENV{'HISTFILE'};
 
-my ( undef, undef, undef, $day, $month, $year ) = localtime;
+my ( $hostname, $session_id, $target_history_id, $current_time, $exit_status, $db_basename ) = @ARGV;
 
-$month++;
-$year += 1_900;
+unless($db_basename) {
+    my ( undef, undef, undef, $day, $month, $year ) = localtime;
 
-# XXX you *could* have a command that runs over midnight and thus tries to update the wrong DB
-my $database = sprintf('%s.d/%04d-%02d-%02d.db', $ENV{'HISTFILE'},
-    $year, $month, $day);
+    $month++;
+    $year += 1_900;
+
+    $db_basename = sprintf('%04d-%02d-%02d', $year, $month, $day);
+}
+
+my $database = $ENV{'HISTFILE'} . '.d/' . $db_basename . '.db';
 
 my $database_dir = dirname($database);
 
@@ -28,8 +32,6 @@ my $dbh = DBI->connect("dbi:SQLite:dbname=$database", undef, undef, {
     RaiseError => 1,
     PrintError => 0,
 }); # XXX don't freak out if you can't connect
-
-my ( $hostname, $session_id, $target_history_id, $current_time, $exit_status ) = @ARGV;
 
 my $update_sth = $dbh->prepare(<<'END_SQL');
 UPDATE history SET duration = :current_time - timestamp, exit_status = :status

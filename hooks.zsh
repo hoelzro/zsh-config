@@ -25,6 +25,7 @@ command_not_found_handler() {
 write_sqlite_history() {
     local entry=$1
     __running_histcmd=$HISTCMD
+    __running_histdb="$(date +'%F')"
 
     if [[ $1 == ${~HISTORY_IGNORE} ]] ; then
         __running_histcmd=''
@@ -55,7 +56,7 @@ update_sqlite_history() {
 
     # XXX not sure how to handle ctrl-c on the command line...
 
-    ~/.zsh-scripts/hist-update.pl "$(hostname)" "$$" $__running_histcmd "$(date +'%s')" $__exit_status
+    ~/.zsh-scripts/hist-update.pl "$(hostname)" "$$" $__running_histcmd "$(date +'%s')" $__exit_status "$__running_histdb"
 }
 
 add-zsh-hook precmd update_sqlite_history
