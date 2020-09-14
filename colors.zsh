@@ -34,10 +34,9 @@ function __vcs_prompt {
     vcs_type=$__dir_vcs_type[$wd]
 
     if [[ $vcs_type == git ]]; then
-        branch=$(git branch --color=never | sed -ne 's/* //p')
+        branch=$(git branch --show-current)
 
-        # I hope this stays stable...
-        if [[ $branch == '(no branch)' ]] ; then
+        if [[ $branch == '' ]] ; then
             local repo_root=$(git rev-parse --show-toplevel)
             if [[ -e "$repo_root/.git/rebase-merge" ]]; then
                 branch='(rebasing)'
