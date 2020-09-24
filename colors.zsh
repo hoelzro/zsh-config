@@ -42,6 +42,8 @@ function __vcs_prompt {
                 branch='(rebasing)'
             elif [[ -e "$repo_root/.git/BISECT_START" ]] ; then
                 branch='(bisecting)'
+            else
+                branch="$(git log -1 --decorate=full --pretty=format:%h\ %D | perl -anle 'print $1 if m{refs/tags/([^,]+)}; print "HEAD detached at $F[0]"' | head -1)"
             fi
         else
             upstream_relationship=$(git for-each-ref --format='%(upstream:track)' "refs/heads/$branch" | perl -CSAD -Mutf8 -nE 'chomp; $ahead = "↑$1" if /ahead\s+(\d+)/; $behind = "↓$1" if /behind\s+(\d+)/; say $ahead . $behind')
