@@ -225,10 +225,6 @@ function run-help-kubectl {
     command kubectl "$@" --help
 }
 
-function tarry {
-    command sleep "$@"
-}
-
 function sleep {
     echo "Don't sleep - tarry!" >&2
     tarry "$@"
