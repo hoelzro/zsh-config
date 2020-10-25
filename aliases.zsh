@@ -21,6 +21,7 @@ alias notify-rob="xmpp-notify.pl -c ~/.notifyrob.yaml"
 alias pacnew='sudo find /etc/ -name "*.pacnew"'
 alias xmltidy='tidy -xml -i 2>/dev/null'
 alias tree='tree -C'
+alias vim=nvim
 
 alias gd='git diff --no-prefix'
 alias gf='git fetch'
