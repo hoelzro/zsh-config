@@ -10,7 +10,7 @@ function _complete_sqlite() {
     compset -q
     local -a sql_words
     # the second argument to completion() isn't used, so let's omit it for now (but ${QIPREFIX:1} is what I was trying, and ${compstate[quote]} is handy)
-    sql_words=( $(command sqlite3 $db_file "select candidate from completion('$PREFIX', '')" ) )
+    sql_words=( $(command sqlite3 -init /dev/null -batch $db_file "select candidate from completion('$PREFIX', '')" ) )
     compadd -M 'm:{[:lower:]}={[:upper:]}' $@ "${sql_words[@]}"
 }
 
