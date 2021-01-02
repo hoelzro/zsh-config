@@ -13,7 +13,7 @@ command_not_found_handler() {
     echo "command '$cmd' not found"
 
     local pkgs
-    pkgs=(${(f)"$(test -e $HOME/.cache/pkgfiles.db && sqlite3 -batch $HOME/.cache/pkgfiles.db "select package_name from package_binaries where exe_name = '$cmd'" 2>/dev/null)"})
+    pkgs=(${(f)"$(test -e $HOME/.cache/pkgfiles.db && sqlite3 -init /dev/null -batch $HOME/.cache/pkgfiles.db "select package_name from package_binaries where exe_name = '$cmd'" 2>/dev/null)"})
     if [[ -n "$pkgs" ]]; then
         printf '%s may be found in the following packages:\n' "$cmd"
         printf '  %s\n' $pkgs[@]
