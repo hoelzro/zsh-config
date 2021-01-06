@@ -33,7 +33,7 @@ options+=(
 )
 
 output_modes=( column HTML line list )
-(( $+sqlite3 )) && output_modes+=( ascii csv quote )
+(( $+sqlite3 )) && output_modes+=( ascii box csv json markdown table tabs quote )
 exclusive=( $^dashes-${^output_modes:l} )
 for display_opt in $output_modes ; do
   # finagle the description to match the way SQLite's -help formats them
@@ -57,11 +57,15 @@ options+=(
   $^dashes'-append[append the database to the end of the file]'
   $^dashes'-bail[stop after hitting an error]'
   $^dashes'-cmd[run specified command before reading stdin]:sqlite meta-command'
+  $^dashes'-deserialize[open the database using sqlite3_deserialize()]'
   '(-*batch -*interactive)'$^dashes'-batch[force batch I/O]'
   '(-*batch -*interactive)'$^dashes'-interactive[force interactive I/O]'
   $^dashes'-lookaside[specify size and number of entries for lookaside memory]:size (bytes): :entries'
+  $^dashes'-maxsize[specify maximum size for a --deserialize database]:size'
+  $^dashes'-memtrace[trace all memory allocations and deallocations]'
   $^dashes'-mmap[set default mmap size]:size'
   $^dashes'-newline[set output row separator]:separator [\n]'
+  $^dashes'-nofollow[refuse to open symbolic links to database files]'
   $^dashes'-pagecache[specify size and number of slots for page cache memory]:size (bytes): :slots'
   $^dashes'-readonly[open the database read-only]'
   $^dashes'-stats[print memory stats before each finalize]'
@@ -80,6 +84,7 @@ if [[ -n $words[(r)-A*] ]]; then
     + '(commands)' \
     '(-c --create)'{-c,--create}'[create a new archive]'
     '(-u --update)'{-u,--update}'[update or add files to an existing archive]'
+    '(-i --insert)'{-i,--insert}'[like -u but always add even if mtime unchanged]'
     '(-t --list)'{-t,--list}'[list contents of archive]'
     '(-x --extract)'{-x,--extract}'[extract files from archive]'
   )
