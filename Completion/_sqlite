@@ -2,11 +2,51 @@
 
 local opt display_opt sqlite3 ign
 local -a options output_modes exclusive dashes
+local -A option_arity
+
+# any option not present is assumed to have arity 0
+option_arity=(
+    [init]=1
+    [separator]=1
+    [nullvalue]=1
+    [cmd]=1
+    [lookaside]=2
+    [maxsize]=1
+    [mmap]=1
+    [newline]=1
+    [pagecache]=2
+    [vfs]=1
+    [1]=1
+    [a]=1
+    [append]=1
+    [f]=1
+    [file]=1
+    [C]=1
+    [directory]=1
+)
 
 # XXX could I use the _sqlite function provided by zsh?
 
 function _complete_sqlite() {
-    local db_file=${words[2]}
+    local db_file
+    local opt
+
+    # locate the database file argument
+    for (( i = 2; i < CURRENT; i++ )) ; do
+        case $words[i] in
+            -*)
+                opt=$words[i]
+                opt=${opt#-}
+                opt=${opt#-} # XXX if I could remove both leading dashes in one expression, that would be great!
+                (( i += $option_arity[$opt] + 0 ))
+                ;;
+            *)
+                db_file=$words[i]
+                break
+                ;;
+        esac
+    done
+
     compset -q
     local -a sql_words
     # the second argument to completion() isn't used, so let's omit it for now (but ${QIPREFIX:1} is what I was trying, and ${compstate[quote]} is handy)
