@@ -47,6 +47,8 @@ function _complete_sqlite() {
         esac
     done
 
+    db_file=${~db_file}
+
     compset -q
     local -a sql_words
     # the second argument to completion() isn't used, so let's omit it for now (but ${QIPREFIX:1} is what I was trying, and ${compstate[quote]} is handy)
