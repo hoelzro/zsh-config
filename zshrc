@@ -69,6 +69,8 @@ zstyle ':completion:*:globbed-files' ignored-patterns \
 
 zstyle ':completion:*:cd:*' file-sort 'reverse modification'
 
+zstyle ':completion:*:*:sqlite3:*:*' file-patterns '*.(db|sqlite):database-files' '%p:all-files'
+
 # Load help...helpers
 unalias run-help
 autoload -Uz run-help
