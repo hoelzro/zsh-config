@@ -16,6 +16,7 @@ export LC_TIME=POSIX
 export LUA_HISTORY=~/.luahist
 export LUA_HISTSIZE=100
 export LUA_INIT="@$HOME/.luarc"
+export MANOPT="--no-hyphenation"
 export MANPAGER=man-pager
 export MANPATH=$MANPATH:/usr/share/man
 export MANSECT='1:l:8:3:0:2:5:4:9:6:7:n'
