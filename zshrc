@@ -13,19 +13,6 @@ if [[ -e ~/.perlbrew/etc/bashrc ]]; then
     source ~/.perlbrew/etc/bashrc
 fi
 
-# rbenv
-if [[ -d ~/.rbenv ]]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init - --no-rehash)"
-fi
-
-# virtual env
-if [[ -e /usr/bin/virtualenvwrapper_lazy.sh ]]; then
-    source /usr/bin/virtualenvwrapper_lazy.sh
-elif [[ -e /usr/bin/virtualenvwrapper.sh ]]; then
-    source /usr/bin/virtualenvwrapper.sh
-fi
-
 fpath=("$HOME/.zsh-scripts/Completion/" "$HOME/.zsh-scripts/Functions/Local" "$HOME/.zsh-scripts/Functions/" $fpath)
 autoload -U compinit
 compinit
@@ -33,15 +20,6 @@ compinit
 # Awesome URL quoting magic
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
-
-# Autojump
-if [[ -e /usr/etc/profile.d/autojump.zsh ]]; then
-    source /usr/etc/profile.d/autojump.zsh
-elif [[ -e /etc/profile.d/autojump.zsh ]]; then
-    source /etc/profile.d/autojump.zsh
-elif [[ ! -z "$__BREW_ROOT" ]] && [[ -e "$__BREW_ROOT/etc/autojump.zsh" ]]; then
-    source $__BREW_ROOT/etc/autojump.zsh
-fi
 
 autoload -U add-zsh-hook
 
