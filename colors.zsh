@@ -12,8 +12,6 @@ function __setup_zsh_prompt() {
     if [[ -z "$vcs_type" ]]; then
         if git rev-parse --is-inside-work-tree 2>/dev/null | grep -q true; then
             vcs_type=git
-        elif hg branch &>/dev/null; then
-            vcs_type=hg
         else
             vcs_type=none
         fi
@@ -55,13 +53,6 @@ function __vcs_prompt {
             echo -n "[%B%F{yellow}git:$branch$upstream_relationship%f%b] "
         else
             echo -n "[%B%F{green}git:$branch$upstream_relationship%f%b] "
-        fi
-    elif [[ $vcs_type == hg ]]; then
-        branch=$(hg branch)
-        if hg status --quiet | grep -q . ; then
-            echo -n "[%B%F{red}hg:$branch%f%b] "
-        else
-            echo -n "[%B%F{green}hg:$branch%f%b] "
         fi
     fi
 }
