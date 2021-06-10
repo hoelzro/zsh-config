@@ -235,7 +235,13 @@ function run-help-kubectl {
     command kubectl "$@" --help
 }
 
-function sleep {
-    echo "Don't sleep - tarry!" >&2
-    tarry "$@"
+function _sleep_impl {
+    local parse_state=(${=1})
+    shift
+    if [[ ${#${(M)parse_state#(while|for)}} -gt 0 ]]; then
+        command sleep "$@"
+    else
+        echo "Don't sleep - tarry!" >&2
+        tarry "$@"
+    fi
 }

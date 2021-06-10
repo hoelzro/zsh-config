@@ -45,3 +45,5 @@ alias -g EHAD=HEAD
 if echo "$TERM" | egrep -q '.*-256color' ; then
     alias tmux='tmux -2'
 fi
+
+alias sleep="_sleep_impl \"\$(print -P '%_')\""
