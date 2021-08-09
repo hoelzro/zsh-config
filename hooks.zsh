@@ -38,10 +38,6 @@ write_sqlite_history() {
 add-zsh-hook zshaddhistory write_sqlite_history
 
 write_sqlite_history_onexit() {
-    if [[ $1 == ${~HISTORY_IGNORE} ]] ; then
-        return
-    fi
-
     ~/.zsh-scripts/hist-append.pl "$(hostname)" "$$" "$(date +'%s')" $HISTCMD "$(pwd)" "exit" || echo "Failed to write SQLite history - fix me!"
 }
 
