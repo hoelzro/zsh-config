@@ -32,7 +32,7 @@ function _complete_sqlite() {
     local opt
 
     if [[ $service = fxsql ]] ; then
-        db_file=$HOME/.mozilla/firefox/*.default/places.sqlite
+        db_file=$HOME/.mozilla/firefox/*.default-release/places.sqlite
     else
       # locate the database file argument
       for (( i = 2; i < CURRENT; i++ )) ; do
