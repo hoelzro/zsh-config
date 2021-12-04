@@ -72,4 +72,15 @@ function zle-keymap-select {
 zle -N zle-keymap-select
 zle -N zle-line-init
 
-PS1="\$([[ \$__vi_mode == 'vicmd' ]] && echo %U)%(2j.(%j jobs running) .%(1j.(1 job running) .))\$(__vcs_prompt)%F{cyan}[%*] %F{green}%n@%m %F{blue}%~ \$ %f\$([[ \$__vi_mode == 'vicmd' ]] && echo %u)"
+function _auto_notify {
+    setopt local_options
+    setopt extendedglob
+
+    local duration=$(fc -lDn -1 -1)
+    duration=${duration/(#b)0#([[:digit:]]):0#([[:digit:]]##)*/$(( $match[1] * 60 + $match[2] ))}
+    if [[ $duration -ge 10 ]] ; then
+        echo -n "\a"
+    fi
+}
+
+PS1="\$([[ \$__vi_mode == 'vicmd' ]] && echo %U)\$(_auto_notify)%(2j.(%j jobs running) .%(1j.(1 job running) .))\$(__vcs_prompt)%F{cyan}[%*] %F{green}%n@%m %F{blue}%~ \$ %f\$([[ \$__vi_mode == 'vicmd' ]] && echo %u)"
