@@ -79,7 +79,7 @@ function _auto_notify {
     local duration=$(fc -lDn -1 -1)
     duration=${duration/(#b)0#([[:digit:]]):0#([[:digit:]]##)*/$(( $match[1] * 60 + $match[2] ))}
     if [[ $duration -ge 10 ]] ; then
-        echo -n "\a"
+        echo -n "%{\a%}"
     fi
 }
 
