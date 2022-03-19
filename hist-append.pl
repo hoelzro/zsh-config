@@ -28,6 +28,8 @@ my $dbh = DBI->connect("dbi:SQLite:dbname=$database", undef, undef, {
     PrintError => 0,
 });
 
+my ( $current_schema_version ) = $dbh->selectrow_array('PRAGMA schema_version');
+
 $dbh->do(<<'END_SQL');
 CREATE TABLE IF NOT EXISTS history (
     hostname,
@@ -40,6 +42,13 @@ CREATE TABLE IF NOT EXISTS history (
     exit_status
 );
 END_SQL
+
+my ( $post_create_table_schema_version ) = $dbh->selectrow_array('PRAGMA schema_version');
+
+# we created the table, so set the user_version
+if($current_schema_version != $post_create_table_schema_version) {
+    $dbh->do('PRAGMA user_version = 1');
+}
 
 # XXX detect shell exit?
 
