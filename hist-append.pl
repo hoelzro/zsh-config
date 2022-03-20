@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS history (
     hostname,
     session_id, -- shell PID
     timestamp integer not null,
+    tz_offset integer,
     history_id, -- $HISTCMD
     cwd,
     entry,
@@ -47,7 +48,7 @@ my ( $post_create_table_schema_version ) = $dbh->selectrow_array('PRAGMA schema_
 
 # we created the table, so set the user_version
 if($current_schema_version != $post_create_table_schema_version) {
-    $dbh->do('PRAGMA user_version = 1');
+    $dbh->do('PRAGMA user_version = 2');
 }
 
 # XXX detect shell exit?
