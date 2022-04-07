@@ -47,3 +47,5 @@ if echo "$TERM" | egrep -q '.*-256color' ; then
 fi
 
 alias sleep="_sleep_impl \"\$(print -P '%_')\""
+
+alias xargs=xargs\ 
