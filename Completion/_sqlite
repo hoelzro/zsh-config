@@ -1,4 +1,4 @@
-#compdef fxsql sqlite sqlite3
+#compdef fxsql histdb sqlite sqlite3
 
 local opt display_opt sqlite3 ign
 local -a options output_modes exclusive dashes
@@ -33,6 +33,9 @@ function _complete_sqlite() {
 
     if [[ $service = fxsql ]] ; then
         db_file=$HOME/.mozilla/firefox/*.default-release/places.sqlite
+    elif [[ $service = histdb ]] ; then
+        # XXX the first run the cached histdb file won't exist - but that's probably good enough for now
+        db_file=/home/rob/.cache/histdb.db
     else
       # locate the database file argument
       for (( i = 2; i < CURRENT; i++ )) ; do
@@ -61,7 +64,7 @@ function _complete_sqlite() {
     compadd -M 'm:{[:lower:]}={[:upper:]}' $@ "${sql_words[@]}"
 }
 
-[[ $service = sqlite3 || $service = fxsql ]] && sqlite3=true || unset sqlite3
+[[ $service = sqlite3 || $service = fxsql || $service = histdb ]] && sqlite3=true || unset sqlite3
 
 # sqlite options require a single hyphen, but
 # sqlite3 allows options with one or two
@@ -97,7 +100,7 @@ options+=(
   "$ign(- :)"$^dashes'-help[show help]'
 )
 
-if [[ $service = fxsql ]] ; then
+if [[ $service = fxsql || $service = histdb ]] ; then
   options+=(
     '1:SQL to run:_complete_sqlite'
   )
