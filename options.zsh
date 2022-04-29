@@ -4,6 +4,7 @@ setopt pushd_silent
 setopt always_to_end
 setopt bash_auto_list # also sets list_ambiguous
 setopt complete_in_word
+setopt extendedglob
 unsetopt hup
 setopt list_rows_first
 setopt list_types
