@@ -31,6 +31,26 @@ source ~/.zsh-scripts/env.zsh
 source ~/.zsh-scripts/hooks.zsh
 source ~/.zsh-scripts/keys.zsh
 
+function _ls() {
+    typeset -a args
+    local needs_dash_d=false
+
+    while [[ $# -gt 0 ]] ; do
+        if [[ ${1[-1,-1]} == '*' || ${1[-2,-1]} == '*/' ]] ; then
+            needs_dash_d=true
+        fi
+        args=( ${args[@]} ${~1} )
+        shift
+    done
+
+    if $needs_dash_d ; then
+        args=( -d ${args[@]} )
+    fi
+
+    command ls "${args[@]}"
+}
+alias ls="noglob _ls $__LS_FLAGS"
+
 # Site-specific customizations
 if [[ -e ~/.zsh-scripts/local.zsh ]]; then
     source ~/.zsh-scripts/local.zsh

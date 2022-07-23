@@ -12,7 +12,6 @@ alias hl='ack --passthru -i'
 alias jbos=jobs
 alias jos=jobs
 alias less="less -RMIFX -PM'lines %lt-%lb of %L'"
-alias ls="ls $__LS_FLAGS"
 alias maek=make
 alias mi='make install'
 alias mt='make test'
