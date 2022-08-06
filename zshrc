@@ -31,7 +31,7 @@ source ~/.zsh-scripts/env.zsh
 source ~/.zsh-scripts/hooks.zsh
 source ~/.zsh-scripts/keys.zsh
 
-function _ls() {
+function __ls() {
     typeset -a args
     local needs_dash_d=false
 
@@ -49,7 +49,8 @@ function _ls() {
 
     command ls "${args[@]}"
 }
-alias ls="noglob _ls $__LS_FLAGS"
+alias ls="noglob __ls $__LS_FLAGS"
+compdef _ls __ls
 
 # Site-specific customizations
 if [[ -e ~/.zsh-scripts/local.zsh ]]; then
