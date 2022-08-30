@@ -10,7 +10,7 @@ command_not_found_handler() {
         exec git $subcommand "$@"
     fi
 
-    echo "command '$cmd' not found"
+    echo "command '$cmd' not found" >&2
 
     local pkgs
     pkgs=(${(f)"$(test -e $HOME/.cache/pkgfiles.db && sqlite3 -init /dev/null -batch $HOME/.cache/pkgfiles.db "select package_name from package_binaries where exe_name = '$cmd'" 2>/dev/null)"})
