@@ -119,6 +119,11 @@ function gcv {
         invocation="git commit -uno -t <(echo -n \"$topic\n# You have more than $threshold changes; use gcvv to see the changes anyway\")"
     else
         invocation="git commit -uno -v -t <(echo -n \"$topic\")"
+
+        # if we're amending, throw _GIT_AMEND into the environment so my prepare-commit-msg hook can pick it up
+        if echo "$*" | grep -q -- ' --amend' ; then
+            invocation="env _GIT_AMEND=1 $invocation"
+        fi
     fi
 
     eval $invocation "$*"
