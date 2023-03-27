@@ -1,4 +1,4 @@
-#compdef aws
+#compdef aws secretsmanager
 
 declare -ga __aws_services
 declare -ga __aws_global_options
@@ -9,8 +9,11 @@ __aws_services=$(python -m awscli.completer 'aws ' 4 | head -n -1)
 __aws_global_options=$(python -m awscli.completer 'aws --' 6 | head -n -1)
 
 function _aws() {
-    local service
     local cmd
+
+    if [[ $service = aws ]] ; then
+        service=''
+    fi
 
     for ((i=2; i < CURRENT; i++)) ; do
         if [[ "${words[$i]:0:2}" != '--' ]] ; then
