@@ -6,6 +6,8 @@ alias cower='cower --color=auto'
 alias cs='perl script/*_server.pl'
 alias dvdblank="cdrecord --verbose dev=/dev/sr0 blank=fast"
 alias dvdburn="cdrecord --verbose --eject dev=/dev/sr0"
+alias egrep="grep -E"
+alias fgrep="grep -F"
 alias grep="grep --colour=auto"
 alias history="history -t '%F %T'"
 alias hl='ack --passthru -i'
