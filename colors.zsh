@@ -66,9 +66,9 @@ function zle-line-init {
     setopt local_options
     setopt extendedglob
 
-    local duration=$(fc -lDn -1 -1)
+    local duration=$(fc -lDnI -1 -1 2>/dev/null)
     duration=${duration/(#b)0#([[:digit:]]##):0#([[:digit:]]##)*/$(( $match[1] * 60 + $match[2] ))}
-    if [[ $duration -ge 10 ]] ; then
+    if [[ -n "$duration" && $duration -ge 10 ]] ; then
         echo -n "%{\a%}"
     fi
 }
