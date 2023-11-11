@@ -240,6 +240,10 @@ function run-help-kubectl {
     command kubectl "$@" --help
 }
 
+function run-help-go {
+    go help "$@"
+}
+
 function _sleep_impl {
     local parse_state=(${=1})
     shift
