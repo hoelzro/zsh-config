@@ -66,15 +66,43 @@ function _remove_magic_keys_and_search_forward() {
     bindkey -M custom '/' slash_show_relative_destination
 }
 
+# XXX can I find a way to apply highlighting to these? maybe cat with ANSI escape sequences + a zle reset-prmopt?
+function _zsh-tips() {
+zle -M "$(cat <<EOF
+(.)       regular files only
+(/)       directories only
+(@)       symlinks only
+
+*(.m-30)      matches regular files modified within the last 30 days
+*(om[1])      matches the most recently modified file
+*(.om[1,20])  matches the 20 most recently modified files
+*.epub(m-1)   matches .epub files modified within the last day
+*(.oc)        regular files, ordered by ctime
+*(.OL)        regular files, ordered by size (descending)
+*.pdf(m-11)   .pdf files modified within the last 11 days
+*.json(mh-4)  .json files modified within the last 4 hours
+*.tid(mm-5)   .tid files modified within the last 5 minutes
+*(L0)         empty files
+*.png(L0)     empty .png files
+
+~/.zsh-scripts/Functions/**(.:t)  the basenames of all regular files under ~/.zsh-scripts/Functions
+
+(NOTE: be careful about using (o) and (O) with ls, since ls orders its args!
+EOF
+)"
+}
+
 zle -N fat_finger_bang4_expand _fat_finger_bang4_expand
 zle -N pacsearch_replace _pacsearch_replace
 zle -N slash_show_relative_destination _slash_show_relative_destination
 zle -N remove_magic_keys_and_search_backward _remove_magic_keys_and_search_backward
 zle -N remove_magic_keys_and_search_forward _remove_magic_keys_and_search_forward
+zle -N zsh-tips _zsh-tips
 
 bindkey -M custom '^I' fat_finger_bang4_expand
 bindkey -M custom ' ' pacsearch_replace
 bindkey -M custom '^[[11~' run-help
+bindkey -M custom '^[[12~' zsh-tips
 bindkey -M custom '^O' push-line
 bindkey -M custom '/' slash_show_relative_destination
 bindkey -M vicmd '/' remove_magic_keys_and_search_backward
