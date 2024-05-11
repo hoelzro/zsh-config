@@ -41,6 +41,7 @@ alias hs='hg status'
 alias ht='hg tip'
 
 alias -g EHAD=HEAD
+alias -g opd=pod
 
 if echo "$TERM" | grep -E -q '.*-256color' ; then
     alias tmux='tmux -2'
