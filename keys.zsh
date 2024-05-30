@@ -124,6 +124,12 @@ bindkey -M vicmd -r '^[[B'
 
 bindkey -M viopp "i'" select-in-shell-word
 
+function _complete_files_wrapper() {
+    _main_complete _files
+}
+zle -C complete-files .complete-word _complete_files_wrapper
+bindkey -M custom '^X^F' complete-files
+
 if which fzf &>/dev/null ; then
     __fzfcmd() {
       [ -n "$TMUX_PANE" ] && { [ "${FZF_TMUX:-0}" != 0 ] || [ -n "$FZF_TMUX_OPTS" ]; } &&
