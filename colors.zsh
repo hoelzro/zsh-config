@@ -81,7 +81,11 @@ function zle-keymap-select {
 zle -N zle-keymap-select
 zle -N zle-line-init
 
-PS1="\$([[ \$__vi_mode == 'vicmd' ]] && echo %U)%(2j.(%j jobs running) .%(1j.(1 job running) .))\$(__vcs_prompt)%F{cyan}[%*] %F{green}%n@%m %F{blue}%~ \$ %f\$([[ \$__vi_mode == 'vicmd' ]] && echo %u)"
+function {
+  local ftcs_prompt=$'\e]133;A\e\\'
+  local ftcs_command_start=$'\e]133;B\e\\'
+  PS1="%{$ftcs_prompt%}\$([[ \$__vi_mode == 'vicmd' ]] && echo %U)%(2j.(%j⚙) .%(1j.(1⚙) .))\$(__vcs_prompt)%F{cyan}[%*] %F{green}%n@%m %F{blue}%~ \$ %f\$([[ \$__vi_mode == 'vicmd' ]] && echo %u)%{$ftcs_command_start%}"
+}
 
 # highlight global aws-cli options in a light grey
 zstyle ':completion:*:aws:*' list-colors '=--(debug|endpoint-url|no-verify-ssl|no-paginate|output|query|profile|region|version|color|no-sign-request|ca-bundle|cli-read-timeout|cli-connect-timeout)=38;5;242'
