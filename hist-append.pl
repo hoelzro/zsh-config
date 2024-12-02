@@ -55,6 +55,8 @@ END_SQL
         $dbh->do('PRAGMA user_version = 2');
     }
 
+    $dbh->do('CREATE INDEX IF NOT EXISTS history_timestamp_idx ON history(timestamp)');
+
     # XXX detect shell exit?
 
     my $insert_sth = $dbh->prepare(<<'END_SQL');
