@@ -18,7 +18,6 @@ $month++;
 $year += 1_900;
 
 my @databases = (
-    sprintf('%s.d/%04d-%02d-%02d.db', $ENV{'HISTFILE'}, $year, $month, $day),
     $ENV{'HISTFILE'} . '.db',
 );
 

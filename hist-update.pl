@@ -11,19 +11,9 @@ use File::Path qw(make_path);
 
 exit unless $ENV{'HISTFILE'};
 
-my ( $hostname, $session_id, $target_history_id, $current_time, $exit_status, $db_basename ) = @ARGV;
-
-unless($db_basename) {
-    my ( undef, undef, undef, $day, $month, $year ) = localtime;
-
-    $month++;
-    $year += 1_900;
-
-    $db_basename = sprintf('%04d-%02d-%02d', $year, $month, $day);
-}
+my ( $hostname, $session_id, $target_history_id, $current_time, $exit_status ) = @ARGV;
 
 my @databases = (
-    $ENV{'HISTFILE'} . '.d/' . $db_basename . '.db',
     $ENV{'HISTFILE'} . '.db',
 );
 
