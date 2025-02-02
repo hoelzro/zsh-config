@@ -14,20 +14,20 @@ function _fat_finger_bang4_expand() {
     zle expand-or-complete
 }
 
-function _pacsearch_replace() {
-    local first_word
-
-    first_word=${${(z)LBUFFER}[1]}
+function _common_replacements() {
+    local words=(${(z)LBUFFER})
+    local first_word=${words[1]}
 
     if [[ "$first_word" == 'pacman' ]]; then
-        local num_words second_word
-
-        num_words=${#${(z)LBUFFER}}
-        second_word=${${(z)LBUFFER}[2]}
+        local num_words=${#words}
+        local second_word=${words[2]}
 
         if [[ $num_words -eq 2 && "$second_word" == '-Ss' ]]; then
             LBUFFER='pacsearch'
         fi
+    elif [[ "$first_word" == 'journalctl' && ${words[-1]} == '-E' ]] ; then
+        words[-1]='-U'
+        LBUFFER=${(j: :)words}
     fi
 
     zle self-insert
@@ -93,14 +93,14 @@ EOF
 }
 
 zle -N fat_finger_bang4_expand _fat_finger_bang4_expand
-zle -N pacsearch_replace _pacsearch_replace
+zle -N commmon_replacements _common_replacements
 zle -N slash_show_relative_destination _slash_show_relative_destination
 zle -N remove_magic_keys_and_search_backward _remove_magic_keys_and_search_backward
 zle -N remove_magic_keys_and_search_forward _remove_magic_keys_and_search_forward
 zle -N zsh-tips _zsh-tips
 
 bindkey -M custom '^I' fat_finger_bang4_expand
-bindkey -M custom ' ' pacsearch_replace
+bindkey -M custom ' ' commmon_replacements
 bindkey -M custom '^[[11~' run-help
 bindkey -M custom '^[[12~' zsh-tips
 bindkey -M custom '^O' push-line
