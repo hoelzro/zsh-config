@@ -43,6 +43,7 @@ alias ht='hg tip'
 
 alias -g EHAD=HEAD
 alias -g opd=pod
+alias -g VAIN='--author=hoelz'
 
 if echo "$TERM" | grep -E -q '.*-256color' ; then
     alias tmux='tmux -2'
