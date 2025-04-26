@@ -34,8 +34,7 @@ function _complete_sqlite() {
     if [[ $service = fxsql ]] ; then
         db_file=$HOME/.mozilla/firefox/*.default-release/places.sqlite
     elif [[ $service = histdb ]] ; then
-        # XXX the first run the cached histdb file won't exist - but that's probably good enough for now
-        db_file=/home/rob/.cache/histdb.db
+        db_file=/home/rob/.zsh_history.db
     else
       # locate the database file argument
       for (( i = 2; i < CURRENT; i++ )) ; do
