@@ -22,7 +22,7 @@ command_not_found_handler() {
     return 127
 }
 
-export HISTDB_SESSION_ID=$(uuidgen)
+export HISTDB_SESSION_ID=$(uuidgen --time-v7)
 
 write_sqlite_history() {
     local entry=$1
