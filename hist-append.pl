@@ -12,11 +12,6 @@ use Time::Piece;
 
 exit unless $ENV{'HISTFILE'};
 
-my ( undef, undef, undef, $day, $month, $year ) = localtime;
-
-$month++;
-$year += 1_900;
-
 my $database = $ENV{'HISTFILE'} . '.db';
 
 my $database_dir = dirname($database);
