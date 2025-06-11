@@ -29,11 +29,11 @@ write_sqlite_history() {
     __running_histcmd=$HISTCMD
 
     if [[ $1 == ${~HISTORY_IGNORE} ]] ; then
-        __running_histcmd=''
+        __running_histid=''
         return
     fi
 
-    ~/.zsh-scripts/hist-append.pl "$(hostname)" "$HISTDB_SESSION_ID" "$(date +'%s')" $HISTCMD "$(pwd)" "$entry" || echo "Failed to write SQLite history - fix me!"
+    __running_histid=$(~/.zsh-scripts/hist-append.pl --print-oid "$(hostname)" "$HISTDB_SESSION_ID" "$(date +'%s')" $HISTCMD "$(pwd)" "$entry" || echo "Failed to write SQLite history - fix me!")
 }
 
 add-zsh-hook zshaddhistory write_sqlite_history
@@ -47,13 +47,13 @@ add-zsh-hook zshexit write_sqlite_history_onexit
 update_sqlite_history() {
     local __exit_status=$?
 
-    if [[ -z "$__running_histcmd" ]] ; then
+    if [[ -z "$__running_histid" ]] ; then
         return
     fi
 
     # XXX not sure how to handle ctrl-c on the command line...
 
-    ~/.zsh-scripts/hist-update.pl "$(hostname)" "$HISTDB_SESSION_ID" $__running_histcmd "$(date +'%s')" $__exit_status
+    ~/.zsh-scripts/hist-update.pl --oid="$__running_histid" "$(hostname)" "$HISTDB_SESSION_ID" $__running_histcmd "$(date +'%s')" $__exit_status
 }
 
 add-zsh-hook precmd update_sqlite_history
