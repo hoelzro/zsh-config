@@ -27,7 +27,6 @@ export HISTDB_SESSION_ID=$(uuidgen --time-v7)
 write_sqlite_history() {
     local entry=$1
     __running_histcmd=$HISTCMD
-    __running_histdb="$(date +'%F')"
 
     if [[ $1 == ${~HISTORY_IGNORE} ]] ; then
         __running_histcmd=''
@@ -54,7 +53,7 @@ update_sqlite_history() {
 
     # XXX not sure how to handle ctrl-c on the command line...
 
-    ~/.zsh-scripts/hist-update.pl "$(hostname)" "$HISTDB_SESSION_ID" $__running_histcmd "$(date +'%s')" $__exit_status "$__running_histdb"
+    ~/.zsh-scripts/hist-update.pl "$(hostname)" "$HISTDB_SESSION_ID" $__running_histcmd "$(date +'%s')" $__exit_status
 }
 
 add-zsh-hook precmd update_sqlite_history
