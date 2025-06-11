@@ -6,6 +6,7 @@ use feature qw(say);
 use experimental qw(signatures);
 
 use DBI;
+use Getopt::Long;
 use File::Basename qw(dirname);
 use File::Path qw(make_path);
 use Time::Piece;
@@ -54,6 +55,12 @@ my $insert_sth = $dbh->prepare(<<'END_SQL');
 INSERT INTO history (hostname, session_id, timestamp, tz_offset, history_id, cwd, entry) VALUES (:hostname, :session_id, :timestamp, :tz_offset, :history_id, :cwd, :entry);
 END_SQL
 
+my $print_oid;
+
+GetOptions(
+  'print-oid' => \$print_oid,
+) or die "unable to process command line";
+
 my ( $hostname, $session_id, $timestamp, $history_id, $cwd, $entry ) = @ARGV;
 
 chomp $entry;
@@ -67,3 +74,7 @@ $insert_sth->bind_param(':cwd'        => $cwd);
 $insert_sth->bind_param(':entry'      => $entry);
 
 $insert_sth->execute;
+
+if($print_oid) {
+    say $insert_sth->last_insert_id;
+}
