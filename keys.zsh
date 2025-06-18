@@ -48,6 +48,14 @@ function _slash_show_relative_destination() {
             zle -M ${${~second_word}:P}
         fi
     fi
+
+    local -a words=(${(z)LBUFFER})
+    local last_word=${words[-1]}
+
+    if [[ "$last_word" == '/tmp/' ]] ; then
+        words[-1]='/ws/'
+        LBUFFER=${(j: :)words}
+    fi
 }
 
 function _remove_magic_keys_and_search_backward() {
