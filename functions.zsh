@@ -206,7 +206,7 @@ function check-dotfiles-sync-status {
     sync_status_file="$HOME/.cache/dotfiles-sync"
 
     if [[ -e $sync_status_file && $(( $(stat -c '%Y' $sync_status_file) + 14400 )) -gt $(date +'%s') ]] ; then
-        for dir in ~/.vim ~/.config/awesome ~/.zsh-scripts/ ~/projects/dotfiles ; do
+        git config --get-all syncdotfiles.repo | while read dir ; do
             current_branch=$(git -C $dir symbolic-ref --short HEAD)
             local_revision=$(git -C $dir rev-parse HEAD)
             current_revision=$(git -C $dir rev-parse HEAD@{upstream} 2>/dev/null)
