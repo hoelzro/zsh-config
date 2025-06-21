@@ -53,6 +53,9 @@ function _slash_show_relative_destination() {
     local last_word=${words[-1]}
 
     if [[ "$last_word" == '/tmp/' ]] ; then
+        zle -R "hold your horses there, cowboy - you're trying /ws/ for now"
+        command sleep 1
+
         words[-1]='/ws/'
         LBUFFER=${(j: :)words}
     fi
