@@ -5,8 +5,8 @@ declare -ga __aws_global_options
 declare -gA __aws_service_commands
 declare -gA __aws_service_command_options
 
-__aws_services=$(python -m awscli.completer 'aws ' 4 | head -n -1)
-__aws_global_options=$(python -m awscli.completer 'aws --' 6 | head -n -1)
+__aws_services=$(COMP_LINE='aws ' COMP_POINT=4 aws_completer | head -n -1)
+__aws_global_options=$(COMP_LINE='aws --' COMP_POINT=6 aws_completer | head -n -1)
 
 function _aws() {
     local cmd
@@ -31,12 +31,12 @@ function _aws() {
     else
         if [[ -z $cmd ]] ; then
             if [[ -z ${__aws_service_commands[(I)$service]} ]] ; then
-                __aws_service_commands[$service]=$(python -m awscli.completer "aws $service " $((6 + ${#service} )) | head -n -1)
+                __aws_service_commands[$service]=$(COMP_LINE="aws $service " COMP_POINT=$((6 + ${#service} )) aws_completer | head -n -1)
             fi
             _arguments "*:$service commands:(${__aws_service_commands[$service]})"
         else
             if [[ -z ${__aws_service_command_options[(I)$service$cmd]} ]] ; then
-                __aws_service_command_options[$service$cmd]=$(python -m awscli.completer "aws $service $cmd --" $((9 + ${#service} + ${#cmd} )) | head -n -1)
+                __aws_service_command_options[$service$cmd]=$(COMP_LINE="aws $service $cmd --" COMP_POINT=$((9 + ${#service} + ${#cmd} )) aws_completer | head -n -1)
             fi
             _arguments "*:$service $cmd options:(${__aws_service_command_options[$service$cmd]})"
         fi
