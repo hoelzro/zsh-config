@@ -46,7 +46,7 @@ function _complete_sqlite() {
             (( i += $option_arity[$opt] + 0 ))
             ;;
           *)
-            db_file=$words[i]
+            db_file=${(Q)words[i]}
             break
             ;;
         esac
