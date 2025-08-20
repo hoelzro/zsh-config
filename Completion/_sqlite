@@ -54,7 +54,7 @@ function _complete_sqlite() {
     fi
 
     db_file=(${~db_file})
-    db_file="file:$db_file[1]?immutable=1"
+    db_file="file:$db_file[1]?immutable=1&mode=ro"
 
     compset -q
     local -a sql_words
