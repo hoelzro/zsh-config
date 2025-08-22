@@ -122,22 +122,17 @@ zle -C complete-files .complete-word _complete_files_wrapper
 bindkey -M custom '^X^F' complete-files
 
 if which fzf &>/dev/null ; then
-    __fzfcmd() {
-      [ -n "$TMUX_PANE" ] && { [ "${FZF_TMUX:-0}" != 0 ] || [ -n "$FZF_TMUX_OPTS" ]; } &&
-        echo "fzf-tmux ${FZF_TMUX_OPTS:--d${FZF_TMUX_HEIGHT:-40%}} -- " || echo "fzf"
-    }
+    __max_timestamp=$(date +%s)
     fzf-history-widget() {
-      local selected num
-      setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
-      selected=( $(fc -rl 1 | perl -ne 'print if !$seen{(/^\s*[0-9]+\**\s+(.*)/, $1)}++' |
-        FZF_DEFAULT_OPTS="--exact --height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --scheme=history --tiebreak=index --bind=ctrl-r:toggle-sort,ctrl-z:ignore $FZF_CTRL_R_OPTS --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
-      local ret=$?
-      if [ -n "$selected" ]; then
-        num=$selected[1]
-        if [ -n "$num" ]; then
-          zle vi-fetch-history -n $num
-        fi
+      if [[ -z "$HISTFILE" ]] ; then
+        zle vi-history-search-backward
+        return 0
       fi
+
+      local session_id=$HISTDB_SESSION_ID
+      BUFFER="$(HISTDB_SESSION_ID= histdb-browser --horizon-timestamp $__max_timestamp --session-id $session_id --log-format json --log-level debug --log-filename /home/rob/.cache/histdb-$(date +%F).log)"
+      CURSOR=$#BUFFER
+      local ret=$?
       zle reset-prompt
       return $ret
     }
