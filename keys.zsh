@@ -61,22 +61,6 @@ function _slash_show_relative_destination() {
     fi
 }
 
-function _remove_magic_keys_and_search_backward() {
-    bindkey -M custom ' ' self-insert
-    bindkey -M custom '/' self-insert
-    zle vi-history-search-backward
-    bindkey -M custom ' ' pacsearch_replace
-    bindkey -M custom '/' slash_show_relative_destination
-}
-
-function _remove_magic_keys_and_search_forward() {
-    bindkey -M custom ' ' self-insert
-    bindkey -M custom '/' self-insert
-    zle vi-history-search-forward
-    bindkey -M custom ' ' pacsearch_replace
-    bindkey -M custom '/' slash_show_relative_destination
-}
-
 # XXX can I find a way to apply highlighting to these? maybe cat with ANSI escape sequences + a zle reset-prmopt?
 function _zsh-tips() {
 zle -M "$(cat <<EOF
@@ -106,8 +90,6 @@ EOF
 zle -N fat_finger_bang4_expand _fat_finger_bang4_expand
 zle -N commmon_replacements _common_replacements
 zle -N slash_show_relative_destination _slash_show_relative_destination
-zle -N remove_magic_keys_and_search_backward _remove_magic_keys_and_search_backward
-zle -N remove_magic_keys_and_search_forward _remove_magic_keys_and_search_forward
 zle -N zsh-tips _zsh-tips
 
 bindkey -M custom '^I' fat_finger_bang4_expand
@@ -116,8 +98,6 @@ bindkey -M custom '^[[11~' run-help
 bindkey -M custom '^[[12~' zsh-tips
 bindkey -M custom '^O' push-line
 bindkey -M custom '/' slash_show_relative_destination
-bindkey -M vicmd '/' remove_magic_keys_and_search_backward
-bindkey -M vicmd '?' remove_magic_keys_and_search_forward
 
 bindkey -M vicmd 'j' down-history
 bindkey -M vicmd 'k' up-history
