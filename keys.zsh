@@ -121,9 +121,9 @@ function _complete_files_wrapper() {
 zle -C complete-files .complete-word _complete_files_wrapper
 bindkey -M custom '^X^F' complete-files
 
-if which fzf &>/dev/null ; then
+if which histdb-browser &>/dev/null ; then
     __max_timestamp=$(date +%s)
-    fzf-history-widget() {
+    histdb-history-widget() {
       if [[ -z "$HISTFILE" ]] ; then
         zle vi-history-search-backward
         return 0
@@ -136,6 +136,6 @@ if which fzf &>/dev/null ; then
       zle reset-prompt
       return $ret
     }
-    zle     -N   fzf-history-widget
-    bindkey -M vicmd '/' fzf-history-widget
+    zle     -N   histdb-history-widget
+    bindkey -M vicmd '/' histdb-history-widget
 fi
