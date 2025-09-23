@@ -10,7 +10,9 @@ function __setup_zsh_prompt() {
     vcs_type=$__dir_vcs_type[$wd]
 
     if [[ -z "$vcs_type" ]]; then
-        if git rev-parse --is-inside-work-tree 2>/dev/null | grep -q true; then
+        if jj status &>/dev/null ; then
+            vcs_type=jujutsu
+        elif git rev-parse --is-inside-work-tree 2>/dev/null | grep -q true; then
             vcs_type=git
         else
             vcs_type=none
@@ -53,6 +55,12 @@ function __vcs_prompt {
             echo -n "[%B%F{yellow}git:$branch$upstream_relationship%f%b] "
         else
             echo -n "[%B%F{green}git:$branch$upstream_relationship%f%b] "
+        fi
+    elif [[ $vcs_type == jujutsu ]] ; then
+        if jj diff | grep -q . ; then
+            echo -n "[%B%F{red}jj%f%b] "
+        else
+            echo -n "[%B%F{green}jj%f%b] "
         fi
     fi
 }
