@@ -119,9 +119,17 @@ if which histdb-browser &>/dev/null ; then
       fi
 
       local session_id=$HISTDB_SESSION_ID
+      local saved_buffer="$BUFFER"
+      local saved_cursor=$CURSOR
       BUFFER="$(HISTDB_SESSION_ID= histdb-browser --horizon-timestamp $__max_timestamp --session-id $session_id --log-format json --log-level debug --log-filename /home/rob/.cache/histdb-$(date +%F).log)"
-      CURSOR=$#BUFFER
       local ret=$?
+
+      if [[ -z "$BUFFER" ]] ; then
+        BUFFER="$saved_buffer"
+        CURSOR=$saved_cursor
+      else
+        CURSOR=$#BUFFER
+      fi
       zle reset-prompt
       return $ret
     }
