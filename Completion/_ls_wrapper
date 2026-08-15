@@ -1,0 +1,3 @@
+#compdef __ls=_ls
+
+_ls "$@"

@@ -50,7 +50,6 @@ function __ls() {
     command ls "${args[@]}"
 }
 alias ls="noglob __ls $__LS_FLAGS"
-compdef _ls __ls
 
 # Site-specific customizations
 if [[ -e ~/.zsh-scripts/local.zsh ]]; then
