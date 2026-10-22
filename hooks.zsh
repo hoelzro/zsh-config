@@ -33,13 +33,13 @@ write_sqlite_history() {
         return
     fi
 
-    __running_histid=$(~/.zsh-scripts/hist-append.pl --print-oid "$(hostname)" "$HISTDB_SESSION_ID" "$(date +'%s')" $HISTCMD "$(pwd)" "$entry" || echo "Failed to write SQLite history - fix me!")
+    __running_histid=$(~/.zsh-scripts/hist-append.pl --print-oid "$(hostname)" "$HISTDB_SESSION_ID" "$(date +'%s')" $HISTCMD "$(pwd)" "$entry" "$__histdb_raw_entry" || echo "Failed to write SQLite history - fix me!")
 }
 
 add-zsh-hook zshaddhistory write_sqlite_history
 
 write_sqlite_history_onexit() {
-    ~/.zsh-scripts/hist-append.pl "$(hostname)" "$HISTDB_SESSION_ID" "$(date +'%s')" $HISTCMD "$(pwd)" "exit" || echo "Failed to write SQLite history - fix me!"
+    ~/.zsh-scripts/hist-append.pl "$(hostname)" "$HISTDB_SESSION_ID" "$(date +'%s')" $HISTCMD "$(pwd)" "exit" "exit" || echo "Failed to write SQLite history - fix me!"
 }
 
 add-zsh-hook zshexit write_sqlite_history_onexit
@@ -57,3 +57,19 @@ update_sqlite_history() {
 }
 
 add-zsh-hook precmd update_sqlite_history
+
+autoload -U add-zle-hook-widget
+
+_clear_histdb_raw_entry() {
+  __histdb_raw_entry=''
+}
+
+_set_histdb_raw_entry() {
+  __histdb_raw_entry="$BUFFER"
+}
+
+zle -N _clear_histdb_raw_entry
+zle -N _set_histdb_raw_entry
+
+add-zle-hook-widget line-init _clear_histdb_raw_entry
+add-zle-hook-widget line-finish _set_histdb_raw_entry

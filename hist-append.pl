@@ -36,7 +36,8 @@ CREATE TABLE IF NOT EXISTS history (
     cwd,
     entry,
     duration,
-    exit_status
+    exit_status,
+    raw_entry
 );
 END_SQL
 
@@ -52,7 +53,7 @@ $dbh->do('CREATE INDEX IF NOT EXISTS history_timestamp_idx ON history(timestamp)
 # XXX detect shell exit?
 
 my $insert_sth = $dbh->prepare(<<'END_SQL');
-INSERT INTO history (hostname, session_id, timestamp, tz_offset, history_id, cwd, entry) VALUES (:hostname, :session_id, :timestamp, :tz_offset, :history_id, :cwd, :entry);
+INSERT INTO history (hostname, session_id, timestamp, tz_offset, history_id, cwd, entry, raw_entry) VALUES (:hostname, :session_id, :timestamp, :tz_offset, :history_id, :cwd, :entry, :raw_entry);
 END_SQL
 
 my $print_oid;
@@ -61,7 +62,7 @@ GetOptions(
   'print-oid' => \$print_oid,
 ) or die "unable to process command line";
 
-my ( $hostname, $session_id, $timestamp, $history_id, $cwd, $entry ) = @ARGV;
+my ( $hostname, $session_id, $timestamp, $history_id, $cwd, $entry, $raw_entry ) = @ARGV;
 
 chomp $entry;
 
@@ -72,6 +73,7 @@ $insert_sth->bind_param(':tz_offset'  => localtime->tzoffset);
 $insert_sth->bind_param(':history_id' => $history_id);
 $insert_sth->bind_param(':cwd'        => $cwd);
 $insert_sth->bind_param(':entry'      => $entry);
+$insert_sth->bind_param(':raw_entry'  => $raw_entry);
 
 $insert_sth->execute;
 
